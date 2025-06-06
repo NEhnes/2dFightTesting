@@ -56,7 +56,7 @@ namespace _2dFightTesting
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            player1.GetNextFrame(g, frameCount);
+            player1.DrawNextFrame(g, frameCount);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)  // now registering

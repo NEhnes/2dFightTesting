@@ -36,7 +36,7 @@ namespace _2dFightTesting
         Image[] attack1Frames = new Image[6] { Properties.Resources.attack1_1, Properties.Resources.attack1_2 , Properties.Resources.attack1_3 ,
                                             Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_6 };
 
-        
+        Image[] jumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
 
 
         public Character(float _x, float _y)
@@ -79,10 +79,14 @@ namespace _2dFightTesting
             onGround = false;
         }
 
-        public void GetNextFrame(Graphics g, int frameCount)
+        public void DrawNextFrame(Graphics g, int frameCount)
         {
-            if(xSpeed != 0 && onGround) currentMove = "run";
-            if (xSpeed == 0 && currentMove == "run") currentMove = "idle";
+            if (onGround)
+            {
+                currentMove = (xSpeed == 0) ? "idle" : "run"; // set move based on speed
+            } else {
+                currentMove = "jump";
+            }
 
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
@@ -97,16 +101,28 @@ namespace _2dFightTesting
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
                     currentImage = runFrames[animationCounter]; // default frame
                     break;
+                case "jump":
+                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    currentImage = jumpFrames[animationCounter % jumpFrames.Length]; // jump frame
+                    break;
                 case "attack1":
                     rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
                     currentImage = attack1Frames[animationCounter]; // attack frame
                     break;
             }
 
-            //Rectangle rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-            //Image currentImage = idleFrames[animationCounter];
 
-            g.DrawImage(currentImage, rect); //character frame
+            if (xSpeed > 0) // flip image if moving left
+            {
+                g.DrawImage(currentImage, rect); //character frame 
+            }
+            else
+            {
+                Image flippedImage = new Bitmap(currentImage);
+                flippedImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                g.DrawImage(flippedImage, rect); //character frame 
+            }
+
 
             if (frameCount % 3 == 0) // change frame every 5 ticks
             {
@@ -125,6 +141,9 @@ namespace _2dFightTesting
                         {
                             animationCounter = 0; // reset to first frame
                         }
+                        break;
+                    case "jump":
+                        animationCounter = 1; // stay in midair frame
                         break;
                     case "attack1":
                         if (animationCounter >= attack1Frames.Length)
