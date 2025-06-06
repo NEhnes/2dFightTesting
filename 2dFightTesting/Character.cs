@@ -38,6 +38,7 @@ namespace _2dFightTesting
 
         Image[] jumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
 
+        Image[] fallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
         public Character(float _x, float _y)
         {
@@ -81,11 +82,13 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
-            if (onGround)
+            if (onGround && currentMove != "attack1")
             {
                 currentMove = (xSpeed == 0) ? "idle" : "run"; // set move based on speed
-            } else {
-                currentMove = "jump";
+            }
+            else
+            {
+                currentMove = (ySpeed <= 0) ? "jump": "fall"; // set move based on ySpeed /ADD FALL LATER
             }
 
             Rectangle rect = new Rectangle(0, 0, 1, 1);
@@ -105,6 +108,10 @@ namespace _2dFightTesting
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
                     currentImage = jumpFrames[animationCounter % jumpFrames.Length]; // jump frame
                     break;
+                case "fall":
+                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    currentImage = fallFrames[animationCounter % fallFrames.Length]; // fall frame
+                    break;
                 case "attack1":
                     rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
                     currentImage = attack1Frames[animationCounter]; // attack frame
@@ -112,7 +119,7 @@ namespace _2dFightTesting
             }
 
 
-            if (xSpeed > 0) // flip image if moving left
+            if (xSpeed >= 0) // flip image if moving left
             {
                 g.DrawImage(currentImage, rect); //character frame 
             }
@@ -143,7 +150,16 @@ namespace _2dFightTesting
                         }
                         break;
                     case "jump":
-                        animationCounter = 1; // stay in midair frame
+                        if (animationCounter >= jumpFrames.Length)
+                        {
+                            animationCounter = 0; // reset to first frame
+                        }
+                        break;
+                    case "fall":
+                        if (animationCounter >= fallFrames.Length)
+                        {
+                            animationCounter = 0; // reset to first frame
+                        }
                         break;
                     case "attack1":
                         if (animationCounter >= attack1Frames.Length)
@@ -159,20 +175,18 @@ namespace _2dFightTesting
 
         public void SetMove(string move)
         {
-            if (currentMove ==  "idle" && !stunned)
+            if (!stunned)
             {
-                if (move == "attack1")
+                if (move == "attack1" && onGround)
                 {
-                    if (onGround)
-                    {
-                        currentMove = move; // set new move
-                    }
+                    currentMove = move; // set new move
+
                 }
                 else
                 {
                     currentMove = move; // set new move
                 }
-                
+
 
                 xSpeed = 0; // reset speeds when changing moves
                 ySpeed = 0;
