@@ -43,7 +43,7 @@ namespace _2dFightTesting
                 wBufferStopwatch.Stop();
             }
 
-            if(player1.currentMove != "attack1")
+            if(player1.currentState != "attack1")
             {
 
                 player1.Move(aPressed, dPressed, wPressed);
@@ -76,8 +76,8 @@ namespace _2dFightTesting
                     wBufferStopwatch.Restart();
                     break;
                 case Keys.Q: // attack 1
-                    player1.SetMove("attack1");
-                    ScreenShake(6, 120); // shake harder for attack
+                    if (player1.currentState != "attack1") player1.SetMove("attack1");
+                    //ScreenShake(6, 120); // shake harder for attack
                     break;
                 case Keys.Escape:
                     break;
