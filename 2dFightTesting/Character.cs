@@ -82,14 +82,19 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
-            if (onGround && currentMove != "attack1")
+            //problem starts here
+            if (onGround)
             {
-                currentMove = (xSpeed == 0) ? "idle" : "run"; // set move based on speed
+                if (currentMove != "attack1")
+                {
+                    currentMove = (xSpeed == 0) ? "idle" : "run"; // set move based on speedd
+                }
             }
             else
             {
-                currentMove = (ySpeed <= 0) ? "jump": "fall"; // set move based on ySpeed /ADD FALL LATER
+                currentMove = (ySpeed <= 0) ? "jump" : "fall"; // set move based on ySpeed /ADD FALL LATER
             }
+            // problem ends here
 
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
@@ -180,7 +185,7 @@ namespace _2dFightTesting
                 if (move == "attack1" && onGround)
                 {
                     currentMove = move; // set new move
-
+                    Console.WriteLine("Attack 1 move set.");
                 }
                 else
                 {
