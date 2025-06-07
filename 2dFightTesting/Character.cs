@@ -12,20 +12,24 @@ namespace _2dFightTesting
 {
     public class Character
     {
+        //movement properties
         float x, y;
         int xSpeed = 0;
-        const int absSpeed = 10;
+        const int runningSpeed = 10;
         float ySpeed = 0;
         bool onGround = false;
-
         int floorY = 250;
-        int animationCounter = 0;
-
-        bool stunned = false;
         bool facingRight = true;
 
+        //animation properties
+        int animationCounter = 0;
 
-        public String currentMove = "idle"; // idle, attack1, attack2, jump, etc.
+        //attacking properties
+        bool stunned = false;
+        public String currentState = "idle"; // idle, attack1, attack2, jump, etc.
+
+        //misc properties
+        int health = 100;
 
         Image[] idleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
                                             Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
@@ -50,7 +54,7 @@ namespace _2dFightTesting
 
         public void Move(bool _left, bool _right, bool _up)
         {
-            xSpeed = (_left) ? -absSpeed : (_right) ? absSpeed : 0;
+            xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
             if (_up && onGround)
             {
@@ -94,15 +98,15 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
-            if (!currentMove.StartsWith("attack"))
+            if (!currentState.StartsWith("attack"))
             {
                 if (onGround)
                 {
-                    currentMove = (xSpeed == 0) ? "idle" : "run";
+                    currentState = (xSpeed == 0) ? "idle" : "run";
                 }
                 else
                 {
-                    currentMove = (ySpeed <= 0) ? "jump" : "fall";
+                    currentState = (ySpeed <= 0) ? "jump" : "fall";
                 }
             }
             // problem ends here
@@ -110,7 +114,7 @@ namespace _2dFightTesting
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
 
-            switch (currentMove)
+            switch (currentState)
             {
                 case "idle":
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
@@ -158,7 +162,7 @@ namespace _2dFightTesting
             {
                 animationCounter++;
 
-                switch (currentMove)
+                switch (currentState)
                 {
                     case "idle":
                         if (animationCounter >= idleFrames.Length)
@@ -188,8 +192,13 @@ namespace _2dFightTesting
                         if (animationCounter >= attack1Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
-                            x += 25;
-                            currentMove = "idle"; // reset to idle after attack
+                            if (facingRight)
+                                x += 25; // move right after attack
+                            else
+                            {
+                                x -= 25;
+                            }
+                            currentState = "idle"; // reset to idle after attack
                         }
                         break;
                 }
@@ -200,28 +209,23 @@ namespace _2dFightTesting
         {
             if (!stunned)
             {
-                if (move == "attack1" && onGround)
+                if (move == "attack1")
                 {
-                    currentMove = move; // set new move
-                    Console.WriteLine("Attack 1 move set.");
+                    if (onGround)
+                    {
+                        currentState = move; // set new move
+                    }
                 }
                 else
                 {
-                    currentMove = move; // set new move
+                    currentState = move; // set new move
                 }
 
 
                 xSpeed = 0; // reset speeds when changing moves
                 ySpeed = 0;
 
-                if (move == "attack1")
-                {
-                    animationCounter = 3; // Skip frame 0 to make attack feel instant
-                }
-                else
-                {
-                    animationCounter = 0; // // reset animation frame counter
-                } 
+                animationCounter = 0; // // reset animation frame counter
             }
         }
     }
