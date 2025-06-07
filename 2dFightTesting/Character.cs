@@ -13,34 +13,36 @@ namespace _2dFightTesting
     public class Character
     {
         float x, y;
+        float ySpeed = 0;
         int xSpeed = 0;
         const int absSpeed = 10;
-        float ySpeed = 0;
-        bool onGround = false;
-
         int floorY = 250;
         int animationCounter = 0;
-
-        bool stunned = false;
+        bool onGround = false;
         bool facingRight = true;
 
+        public Attack currentAttack = null;
+        private int currentAttackFrame = 0;
+        private bool isAttacking = false;
 
-        public String currentMove = "idle"; // idle, attack1, attack2, jump, etc.
+        public string currentMove = "idle";
 
-        Image[] idleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
-                                            Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
-                                            Properties.Resources.idle7,  Properties.Resources.idle8 };
+        Image[] idleFrames = new Image[]
+        {
+            Properties.Resources.idle1, Properties.Resources.idle2, Properties.Resources.idle3,
+            Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
+            Properties.Resources.idle7, Properties.Resources.idle8
+        };
 
-        Image[] runFrames = new Image[8] { Properties.Resources.run1, Properties.Resources.run2 , Properties.Resources.run3 ,
-                                            Properties.Resources.run4, Properties.Resources.run5, Properties.Resources.run6,
-                                            Properties.Resources.run7,  Properties.Resources.run8 };
+        Image[] runFrames = new Image[]
+        {
+            Properties.Resources.run1, Properties.Resources.run2, Properties.Resources.run3,
+            Properties.Resources.run4, Properties.Resources.run5, Properties.Resources.run6,
+            Properties.Resources.run7, Properties.Resources.run8
+        };
 
-        Image[] attack1Frames = new Image[6] { Properties.Resources.attack1_1, Properties.Resources.attack1_2 , Properties.Resources.attack1_3 ,
-                                            Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_6 };
-
-        Image[] jumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
-
-        Image[] fallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
+        Image[] jumpFrames = new Image[] { Properties.Resources.jump1, Properties.Resources.jump2 };
+        Image[] fallFrames = new Image[] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
         public Character(float _x, float _y)
         {
@@ -59,12 +61,8 @@ namespace _2dFightTesting
 
             if (!onGround)
             {
-                if (y <= floorY)
-                {
-                    ySpeed += (float)(9.8 * 0.4);
-                }
-
-                else if (y > floorY)
+                ySpeed += (float)(9.8 * 0.4);
+                if (y > floorY)
                 {
                     y = floorY - 1;
                     ySpeed = 0;
@@ -72,15 +70,8 @@ namespace _2dFightTesting
                 }
             }
 
-            // Last direction the player moved
-            if (_left)
-            {
-                facingRight = false;
-            }
-            else if (_right)
-            {
-                facingRight = true;
-            }
+            if (_left) facingRight = false;
+            if (_right) facingRight = true;
 
             x += xSpeed;
             y += ySpeed;
@@ -94,133 +85,93 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
-            if (!currentMove.StartsWith("attack"))
+            // Handle active attack animation
+            if (isAttacking && currentAttack != null)
             {
-                if (onGround)
+                if (currentAttackFrame < currentAttack.TotalFrames)
                 {
-                    currentMove = (xSpeed == 0) ? "idle" : "run";
+                    Image attackFrameImage = currentAttack.Frames[Math.Min(currentAttackFrame, currentAttack.Frames.Count - 1)];
+                    Rectangle rect = new Rectangle((int)x - 32, (int)y - 32, 128, 128);
+
+                    if (facingRight)
+                        g.DrawImage(attackFrameImage, rect);
+                    else
+                    {
+                        Image flipped = new Bitmap(attackFrameImage);
+                        flipped.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                        g.DrawImage(flipped, rect);
+                    }
+
+                    if (frameCount % 2 == 0)
+                        currentAttackFrame++;
                 }
                 else
                 {
-                    currentMove = (ySpeed <= 0) ? "jump" : "fall";
+                    isAttacking = false;
+                    currentAttack = null;
+                    currentAttackFrame = 0;
                 }
+
+                return; // Skip base animation
             }
 
-            Rectangle rect = new Rectangle(0, 0, 1, 1);
-            Image currentImage = null;
+            // Movement logic
+            if (onGround)
+                currentMove = (xSpeed == 0) ? "idle" : "run";
+            else
+                currentMove = (ySpeed <= 0) ? "jump" : "fall";
+
+            Rectangle drawRect = new Rectangle((int)x - 32, (int)y, 64, 64);
+            Image currentImage = idleFrames[0];
 
             switch (currentMove)
             {
                 case "idle":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = idleFrames[animationCounter]; // default frame
+                    currentImage = idleFrames[animationCounter];
                     break;
                 case "run":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = runFrames[animationCounter]; // default frame
+                    currentImage = runFrames[animationCounter];
                     break;
                 case "jump":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = jumpFrames[animationCounter % jumpFrames.Length]; // jump frame
+                    currentImage = jumpFrames[animationCounter % jumpFrames.Length];
                     break;
                 case "fall":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = fallFrames[animationCounter % fallFrames.Length]; // fall frame
-                    break;
-                case "attack1":
-                    if (facingRight)
-                    {
-                        rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
-                    }
-                    else
-                    {
-                        rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
-                    }
-                    currentImage = attack1Frames[animationCounter]; // attack frame
+                    currentImage = fallFrames[animationCounter % fallFrames.Length];
                     break;
             }
-
 
             if (facingRight)
-            {
-                g.DrawImage(currentImage, rect); // draw normally
-            }
+                g.DrawImage(currentImage, drawRect);
             else
             {
                 Image flippedImage = new Bitmap(currentImage);
                 flippedImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                g.DrawImage(flippedImage, rect); // draw flipped horizontally
+                g.DrawImage(flippedImage, drawRect);
             }
 
-
-            if (frameCount % 3 == 0) // change frame every 5 ticks
+            // Frame counter update
+            if (frameCount % 3 == 0)
             {
                 animationCounter++;
 
-                switch (currentMove)
-                {
-                    case "idle":
-                        if (animationCounter >= idleFrames.Length)
-                        {
-                            animationCounter = 0; // reset to first frame
-                        }
-                        break;
-                    case "run":
-                        if (animationCounter >= runFrames.Length)
-                        {
-                            animationCounter = 0; // reset to first frame
-                        }
-                        break;
-                    case "jump":
-                        if (animationCounter >= jumpFrames.Length)
-                        {
-                            animationCounter = 0; // reset to first frame
-                        }
-                        break;
-                    case "fall":
-                        if (animationCounter >= fallFrames.Length)
-                        {
-                            animationCounter = 0; // reset to first frame
-                        }
-                        break;
-                    case "attack1":
-                        if (animationCounter >= attack1Frames.Length)
-                        {
-                            animationCounter = 0; // reset to first frame
-                            x += 25;
-                            currentMove = "idle"; // reset to idle after attack
-                        }
-                        break;
-                }
+                if (currentMove == "idle" && animationCounter >= idleFrames.Length)
+                    animationCounter = 0;
+                else if (currentMove == "run" && animationCounter >= runFrames.Length)
+                    animationCounter = 0;
+                else if ((currentMove == "jump" || currentMove == "fall") && animationCounter >= 2)
+                    animationCounter = 0;
             }
         }
 
-        public void SetMove(string move)
+        public void StartAttack(Attack attack)
         {
-            if (!stunned)
+            if (onGround && !isAttacking)
             {
-                if (move == "attack1" && onGround)
-                {
-                    currentMove = move; // set new move
-
-                }
-                else
-                {
-                    currentMove = move; // set new move
-                }
-
-
-                xSpeed = 0; // reset speeds when changing moves
+                currentAttack = attack;
+                currentAttackFrame = 0;
+                isAttacking = true;
+                xSpeed = 0;
                 ySpeed = 0;
-
-                if (move == "attack1")
-                {
-                    animationCounter = 3; // Skip frame 0 to make attack feel instant
-                }
-                else
-                {
-                    animationCounter = 0; // // reset animation frame counter
-                } 
             }
         }
     }
