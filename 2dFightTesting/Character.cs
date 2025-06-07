@@ -22,6 +22,8 @@ namespace _2dFightTesting
         int animationCounter = 0;
 
         bool stunned = false;
+        bool facingRight = true;
+
 
         public String currentMove = "idle"; // idle, attack1, attack2, jump, etc.
 
@@ -70,6 +72,16 @@ namespace _2dFightTesting
                 }
             }
 
+            // Last direction the player moved
+            if (_left)
+            {
+                facingRight = false;
+            }
+            else if (_right)
+            {
+                facingRight = true;
+            }
+
             x += xSpeed;
             y += ySpeed;
         }
@@ -82,17 +94,16 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
-            //problem starts here
-            if (onGround)
+            if (!currentMove.StartsWith("attack"))
             {
-                if (currentMove != "attack1")
+                if (onGround)
                 {
-                    currentMove = (xSpeed == 0) ? "idle" : "run"; // set move based on speedd
+                    currentMove = (xSpeed == 0) ? "idle" : "run";
                 }
-            }
-            else
-            {
-                currentMove = (ySpeed <= 0) ? "jump" : "fall"; // set move based on ySpeed /ADD FALL LATER
+                else
+                {
+                    currentMove = (ySpeed <= 0) ? "jump" : "fall";
+                }
             }
             // problem ends here
 
@@ -118,21 +129,28 @@ namespace _2dFightTesting
                     currentImage = fallFrames[animationCounter % fallFrames.Length]; // fall frame
                     break;
                 case "attack1":
-                    rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
+                    if (facingRight)
+                    {
+                        rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
+                    }
+                    else
+                    {
+                        rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
+                    }
                     currentImage = attack1Frames[animationCounter]; // attack frame
                     break;
             }
 
 
-            if (xSpeed >= 0) // flip image if moving left
+            if (facingRight)
             {
-                g.DrawImage(currentImage, rect); //character frame 
+                g.DrawImage(currentImage, rect); // draw normally
             }
             else
             {
                 Image flippedImage = new Bitmap(currentImage);
                 flippedImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                g.DrawImage(flippedImage, rect); //character frame 
+                g.DrawImage(flippedImage, rect); // draw flipped horizontally
             }
 
 
@@ -196,7 +214,14 @@ namespace _2dFightTesting
                 xSpeed = 0; // reset speeds when changing moves
                 ySpeed = 0;
 
-                animationCounter = 0; // reset animation frame counter
+                if (move == "attack1")
+                {
+                    animationCounter = 3; // Skip frame 0 to make attack feel instant
+                }
+                else
+                {
+                    animationCounter = 0; // // reset animation frame counter
+                } 
             }
         }
     }
