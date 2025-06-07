@@ -105,6 +105,7 @@ namespace _2dFightTesting
                     currentMove = (ySpeed <= 0) ? "jump" : "fall";
                 }
             }
+            // problem ends here
 
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
@@ -202,7 +203,7 @@ namespace _2dFightTesting
                 if (move == "attack1" && onGround)
                 {
                     currentMove = move; // set new move
-
+                    Console.WriteLine("Attack 1 move set.");
                 }
                 else
                 {
