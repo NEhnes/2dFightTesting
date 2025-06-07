@@ -77,7 +77,6 @@ namespace _2dFightTesting
                     break;
                 case Keys.Q: // attack 1
                     player1.SetMove("attack1");
-                    ScreenShake(6, 120); // shake harder for attack
                     break;
                 case Keys.Escape:
                     break;
@@ -111,27 +110,6 @@ namespace _2dFightTesting
                 default:
                     break;
             }
-        }
-
-        private async void ScreenShake(int intensity = 5, int duration = 100)
-        {
-            var originalLocation = this.Location;
-            Random randgen = new Random();
-
-            int elapsed = 0;
-            int interval = 16; // ~60 FPS
-
-            while (elapsed < duration)
-            {
-                int offsetX = randgen.Next(-intensity, intensity + 1);
-                int offsetY = randgen.Next(-intensity, intensity + 1);
-                this.Location = new Point(originalLocation.X + offsetX, originalLocation.Y + offsetY);
-
-                await Task.Delay(interval);
-                elapsed += interval;
-            }
-
-            this.Location = originalLocation; // reset position
         }
     }
 }
