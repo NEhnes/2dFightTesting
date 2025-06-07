@@ -15,11 +15,16 @@ namespace _2dFightTesting
 {
     public partial class Form1 : Form
     {
+        int p1_xSpeed = 0;
+        int p1_ySpeed = 0;
         Character player1 = new Character(100, 100);
+
         bool aPressed = false;
         bool dPressed = false;
         bool wPressed = false;
         Stopwatch wBufferStopwatch = new Stopwatch();
+        bool tabPressed = false;
+
         int frameCount = 0;
 
         public Form1()
@@ -31,14 +36,16 @@ namespace _2dFightTesting
 
         private void gameTimer_Tick_1(object sender, EventArgs e)
         {
-            if (wBufferStopwatch.ElapsedMilliseconds > 100)
+
+            if (wBufferStopwatch.ElapsedMilliseconds > 100) // remove later after testing
             {
                 wPressed = false;
                 wBufferStopwatch.Stop();
             }
 
-            if (player1.currentAttack == null)
+            if(player1.currentMove != "attack1")
             {
+
                 player1.Move(aPressed, dPressed, wPressed);
             }
 
@@ -52,48 +59,56 @@ namespace _2dFightTesting
             player1.DrawNextFrame(g, frameCount);
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)  // now registering
         {
             switch (e.KeyCode)
             {
                 case Keys.A:
+                    //System.Console.WriteLine("A pressed");
                     aPressed = true;
                     break;
                 case Keys.D:
+                    //System.Console.WriteLine("D pressed");
                     dPressed = true;
                     break;
                 case Keys.W:
                     wPressed = true;
                     wBufferStopwatch.Restart();
                     break;
-                case Keys.Q: // Trigger light punch
-                    List<Rectangle> hitboxes = new List<Rectangle> { new Rectangle(20, 20, 40, 40) };
-                    List<Rectangle> hurtboxes = new List<Rectangle> { new Rectangle(10, 10, 30, 50) };
-                    List<Image> frames = new List<Image>
-                    {
-                        Properties.Resources.attack1_1,
-                        Properties.Resources.attack1_2,
-                        Properties.Resources.attack1_3,
-                        Properties.Resources.attack1_4,
-                        Properties.Resources.attack1_5,
-                        Properties.Resources.attack1_6,
-                    };
-
-                    Attack lightPunch = new Attack("lightPunch", 2, 2, 3, 10, 5, hitboxes, hurtboxes, frames);
-                    player1.StartAttack(lightPunch);
+                case Keys.Q: // attack 1
+                    player1.SetMove("attack1");
+                    ScreenShake(6, 120); // shake harder for attack
+                    break;
+                case Keys.Escape:
+                    break;
+                case Keys.Tab:
+                    tabPressed = true;
+                    break;
+                default:
                     break;
             }
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
+            Console.WriteLine(e.KeyCode.ToString() + "______");
+            //player 1 button releases
             switch (e.KeyCode)
             {
                 case Keys.A:
                     aPressed = false;
+                    System.Console.WriteLine("A released");
                     break;
                 case Keys.D:
                     dPressed = false;
+                    System.Console.WriteLine("D released");
+                    break;
+                case Keys.W:
+                    break;
+                case Keys.Escape:
+                    tabPressed = false;
+                    break;
+                default:
                     break;
             }
         }
@@ -102,19 +117,21 @@ namespace _2dFightTesting
         {
             var originalLocation = this.Location;
             Random randgen = new Random();
+
             int elapsed = 0;
-            int interval = 16;
+            int interval = 16; // ~60 FPS
 
             while (elapsed < duration)
             {
                 int offsetX = randgen.Next(-intensity, intensity + 1);
                 int offsetY = randgen.Next(-intensity, intensity + 1);
                 this.Location = new Point(originalLocation.X + offsetX, originalLocation.Y + offsetY);
+
                 await Task.Delay(interval);
                 elapsed += interval;
             }
 
-            this.Location = originalLocation;
+            this.Location = originalLocation; // reset position
         }
     }
 }
