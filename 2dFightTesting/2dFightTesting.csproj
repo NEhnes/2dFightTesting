@@ -104,24 +104,6 @@
     <None Include="Resources\IDLE_6.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\idle1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\idle6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\idle5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\idle4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\idle3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\idle2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\trimmed8.png" />
   </ItemGroup>
   <ItemGroup>
@@ -144,48 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\trimmed1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack1_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\run1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\jump2.png" />
@@ -216,6 +156,72 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\attack2_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack1_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idle8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\run8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
