@@ -77,7 +77,9 @@ namespace _2dFightTesting
                     break;
                 case Keys.Q: // attack 1
                     if (player1.currentState != "attack1") player1.SetMove("attack1");
-                    //ScreenShake(6, 120); // shake harder for attack
+                    break;
+                case Keys.E: // attack 2
+                    if (player1.currentState != "attack2") player1.SetMove("attack2");
                     break;
                 case Keys.Escape:
                     break;

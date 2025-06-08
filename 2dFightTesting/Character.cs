@@ -42,11 +42,14 @@ namespace _2dFightTesting
         Image[] attack1Frames = new Image[6] { Properties.Resources.attack1_1, Properties.Resources.attack1_2 , Properties.Resources.attack1_3 ,
                                             Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_6 };
 
+        Image[] attack2Frames = new Image[6] { Properties.Resources.attack2_1, Properties.Resources.attack2_2 , Properties.Resources.attack2_3 ,
+                                            Properties.Resources.attack2_4, Properties.Resources.attack2_5, Properties.Resources.attack2_6 };
+
         Image[] jumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
 
         Image[] fallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
-        public Character(float _x, float _y, Image[] )
+        public Character(float _x, float _y)
         {
             x = _x;
             y = _y;
@@ -141,6 +144,17 @@ namespace _2dFightTesting
                     }
                     currentImage = attack1Frames[animationCounter]; // attack frame
                     break;
+                case "attack2":
+                    if (facingRight)
+                    {
+                        rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
+                    }
+                    else
+                    {
+                        rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
+                    }
+                    currentImage = attack2Frames[animationCounter]; // attack frame
+                    break;
             }
 
 
@@ -190,7 +204,20 @@ namespace _2dFightTesting
                         if (animationCounter >= attack1Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
-                            if(facingRight)
+                            if (facingRight)
+                                x += 25; // move right after attack
+                            else
+                            {
+                                x -= 25; // move left after attack
+                            }
+                            currentState = "idle"; // revert to idle after attack
+                        }
+                        break;
+                    case "attack2":
+                        if (animationCounter >= attack2Frames.Length)
+                        {
+                            animationCounter = 0; // reset to first frame
+                            if (facingRight)
                                 x += 25; // move right after attack
                             else
                             {
@@ -207,7 +234,7 @@ namespace _2dFightTesting
         {
             if (!stunned)
             {
-                if (move == "attack1")
+                if (move.StartsWith("attack"))
                 {
                     if (onGround)
                     {
