@@ -46,7 +46,7 @@ namespace _2dFightTesting
 
         Image[] fallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
-        public Character(float _x, float _y)
+        public Character(float _x, float _y, Image[] )
         {
             x = _x;
             y = _y;
@@ -54,13 +54,16 @@ namespace _2dFightTesting
 
         public void Move(bool _left, bool _right, bool _up)
         {
+            // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
+            // jump is possible
             if (_up && onGround)
             {
                 Jump();
             }
 
+            // apply gravity
             if (!onGround)
             {
                 if (y <= floorY)
@@ -76,16 +79,10 @@ namespace _2dFightTesting
                 }
             }
 
-            // Last direction the player moved
-            if (_left)
-            {
-                facingRight = false;
-            }
-            else if (_right)
-            {
-                facingRight = true;
-            }
+            // last direction the player moved - condensed with ternary operator
+            facingRight = (_left) ? false : (_right) ? true : facingRight;
 
+            // update pos
             x += xSpeed;
             y += ySpeed;
         }
@@ -109,11 +106,12 @@ namespace _2dFightTesting
                     currentState = (ySpeed <= 0) ? "jump" : "fall";
                 }
             }
-            // problem ends here
 
+            // initialize rectangle and image for drawing
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
 
+            //assign rectangle and image using switch
             switch (currentState)
             {
                 case "idle":
@@ -146,19 +144,19 @@ namespace _2dFightTesting
             }
 
 
-            if (facingRight)
+            if (facingRight) // draw normally
             {
-                g.DrawImage(currentImage, rect); // draw normally
+                g.DrawImage(currentImage, rect); 
             }
-            else
+            else // draw flipped horizontally
             {
                 Image flippedImage = new Bitmap(currentImage);
                 flippedImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                g.DrawImage(flippedImage, rect); // draw flipped horizontally
+                g.DrawImage(flippedImage, rect); 
             }
 
 
-            if (frameCount % 3 == 0) // change frame every 5 ticks
+            if (frameCount % 3 == 0) // change frame every 3 ticks
             {
                 animationCounter++;
 
@@ -196,9 +194,9 @@ namespace _2dFightTesting
                                 x += 25; // move right after attack
                             else
                             {
-                                x -= 25;
+                                x -= 25; // move left after attack
                             }
-                            currentState = "idle"; // reset to idle after attack
+                            currentState = "idle"; // revert to idle after attack
                         }
                         break;
                 }
