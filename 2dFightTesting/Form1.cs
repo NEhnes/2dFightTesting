@@ -15,9 +15,7 @@ namespace _2dFightTesting
 {
     public partial class Form1 : Form
     {
-        int p1_xSpeed = 0;
-        int p1_ySpeed = 0;
-        Character player1 = new Character(100, 100);
+        Character player1 = new Samurai(100, 100);
 
         bool aPressed = false;
         bool dPressed = false;
@@ -25,7 +23,7 @@ namespace _2dFightTesting
         Stopwatch wBufferStopwatch = new Stopwatch();
         bool tabPressed = false;
 
-        Character player2 = new Character(600, 100);
+        Character player2 = new Samurai(600, 100);
         bool leftPressed = false;
         bool rightPressed = false;
         bool upPressed = false;
@@ -82,28 +80,26 @@ namespace _2dFightTesting
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)  // now registering
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
                 //TODO: Change the Q and E keybind to something that can be controlled by the thumb
                 //Player 1 keypresses
                 case Keys.A:
-                    //System.Console.WriteLine("A pressed");
                     aPressed = true;
                     break;
                 case Keys.D:
-                    //System.Console.WriteLine("D pressed");
                     dPressed = true;
                     break;
                 case Keys.W:
                     wPressed = true;
                     wBufferStopwatch.Restart();
                     break;
-                case Keys.Q: // attack 1
+                case Keys.Q: // attack 1 (p1)
                     if (player1.currentState != "attack1") player1.SetMove("attack1");
                     break;
-                case Keys.E: // attack 2
+                case Keys.E: // attack 2 (p2)
                     if (player1.currentState != "attack2") player1.SetMove("attack2");
                     break;
 
@@ -139,18 +135,15 @@ namespace _2dFightTesting
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            Console.WriteLine(e.KeyCode.ToString() + "______");
             //player 1 button releases
             switch (e.KeyCode)
             {
                 //Player 1 key releases
                 case Keys.A:
                     aPressed = false;
-                    System.Console.WriteLine("A released");
                     break;
                 case Keys.D:
                     dPressed = false;
-                    System.Console.WriteLine("D released");
                     break;
                 case Keys.W:
                     wPressed = false;

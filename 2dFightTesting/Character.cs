@@ -28,26 +28,56 @@ namespace _2dFightTesting
         bool stunned = false;
         public String currentState = "idle"; // idle, attack1, attack2, jump, etc.
 
-        //misc properties
-        int health = 100;
+        // ANY VARIABLES THAT DIFFER BY SUBCLASS NEED TO BE MADE AS PROPERTIES SO THEY CAN BE OVERWRITTEN
+        // ANIMATIONS ARE NOW DEPENDENT ON SUBCLASS :)
+        private int _health;
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
 
-        Image[] idleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
-                                            Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
-                                            Properties.Resources.idle7,  Properties.Resources.idle8 };
+        Image[] _idleFrames;
+        public Image[] IdleFrames
+        {
+            get { return _idleFrames; }
+            set { _idleFrames = value; }
+        }
 
-        Image[] runFrames = new Image[8] { Properties.Resources.run1, Properties.Resources.run2 , Properties.Resources.run3 ,
-                                            Properties.Resources.run4, Properties.Resources.run5, Properties.Resources.run6,
-                                            Properties.Resources.run7,  Properties.Resources.run8 };
+        Image[] _runFrames;
+        public Image[] RunFrames
+        {
+            get { return _runFrames; }
+            set { _runFrames = value; }
+        }
 
-        Image[] attack1Frames = new Image[6] { Properties.Resources.attack1_1, Properties.Resources.attack1_2 , Properties.Resources.attack1_3 ,
-                                            Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_6 };
+        Image[] _attack1Frames;
+        public Image[] Attack1Frames
+        {
+            get { return _attack1Frames; }
+            set { _attack1Frames = value; }
+        }
 
-        Image[] attack2Frames = new Image[6] { Properties.Resources.attack2_1, Properties.Resources.attack2_2 , Properties.Resources.attack2_3 ,
-                                            Properties.Resources.attack2_4, Properties.Resources.attack2_5, Properties.Resources.attack2_6 };
+        Image[] _attack2Frames;
+        public Image[] Attack2Frames
+        {
+            get { return _attack2Frames; }
+            set { _attack2Frames = value; }
+        }
 
-        Image[] jumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
+        Image[] _jumpFrames;
+        public Image[] JumpFrames
+        {
+            get { return _jumpFrames; }
+            set { _jumpFrames = value; }
+        }
 
-        Image[] fallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
+        Image[] _fallFrames;
+        public Image[] FallFrames
+        {
+            get { return _fallFrames; }
+            set { _fallFrames = value; }
+        }
 
         public Character(float _x, float _y)
         {
@@ -98,6 +128,7 @@ namespace _2dFightTesting
 
         public void DrawNextFrame(Graphics g, int frameCount)
         {
+            // set default movement frames when not attacking
             if (!currentState.StartsWith("attack"))
             {
                 if (onGround)
@@ -119,19 +150,19 @@ namespace _2dFightTesting
             {
                 case "idle":
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = idleFrames[animationCounter]; // default frame
+                    currentImage = IdleFrames[animationCounter]; // default frame
                     break;
                 case "run":
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = runFrames[animationCounter]; // default frame
+                    currentImage = RunFrames[animationCounter]; // default frame
                     break;
                 case "jump":
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = jumpFrames[animationCounter % jumpFrames.Length]; // jump frame
+                    currentImage = JumpFrames[animationCounter % JumpFrames.Length]; // jump frame
                     break;
                 case "fall":
                     rect = new Rectangle((int)x - 32, (int)y, 64, 64);
-                    currentImage = fallFrames[animationCounter % fallFrames.Length]; // fall frame
+                    currentImage = FallFrames[animationCounter % FallFrames.Length]; // fall frame
                     break;
                 case "attack1":
                     if (facingRight)
@@ -142,7 +173,7 @@ namespace _2dFightTesting
                     {
                         rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
                     }
-                    currentImage = attack1Frames[animationCounter]; // attack frame
+                    currentImage = Attack1Frames[animationCounter]; // attack frame
                     break;
                 case "attack2":
                     if (facingRight)
@@ -153,7 +184,7 @@ namespace _2dFightTesting
                     {
                         rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
                     }
-                    currentImage = attack2Frames[animationCounter]; // attack frame
+                    currentImage = Attack2Frames[animationCounter]; // attack frame
                     break;
             }
 
@@ -177,31 +208,31 @@ namespace _2dFightTesting
                 switch (currentState)
                 {
                     case "idle":
-                        if (animationCounter >= idleFrames.Length)
+                        if (animationCounter >= IdleFrames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                         }
                         break;
                     case "run":
-                        if (animationCounter >= runFrames.Length)
+                        if (animationCounter >= RunFrames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                         }
                         break;
                     case "jump":
-                        if (animationCounter >= jumpFrames.Length)
+                        if (animationCounter >= JumpFrames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                         }
                         break;
                     case "fall":
-                        if (animationCounter >= fallFrames.Length)
+                        if (animationCounter >= FallFrames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                         }
                         break;
                     case "attack1":
-                        if (animationCounter >= attack1Frames.Length)
+                        if (animationCounter >= Attack1Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                             if (facingRight)
@@ -214,7 +245,7 @@ namespace _2dFightTesting
                         }
                         break;
                     case "attack2":
-                        if (animationCounter >= attack2Frames.Length)
+                        if (animationCounter >= Attack2Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
                             if (facingRight)
