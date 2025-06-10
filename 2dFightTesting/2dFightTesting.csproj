@@ -129,34 +129,10 @@
     <None Include="Resources\trimmed1.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\jump2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\jump1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\fall1.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fall2.jpeg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\attack2_1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\attack1_1.png" />
@@ -223,6 +199,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\run8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attack2_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jump1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jump2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fall1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fall2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
