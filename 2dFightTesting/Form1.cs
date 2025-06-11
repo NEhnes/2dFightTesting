@@ -74,8 +74,8 @@ namespace _2dFightTesting
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
-            player1.DrawNextFrame(g, frameCount);
-            player2.DrawNextFrame(g, frameCount);
+            player1.DrawFrame(g, frameCount);
+            player2.DrawFrame(g, frameCount);
 
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
         }

@@ -12,24 +12,24 @@ namespace _2dFightTesting
 {
     public class Character
     {
-        //movement properties
+        //movement attributes
         float x, y;
         int xSpeed = 0;
-        const int runningSpeed = 10;
+        const int runningSpeed = 10; // make as property
         float ySpeed = 0;
         bool onGround = false;
         int floorY = 250;
         bool facingRight = true;
 
-        //animation properties
+        //animation attributes
         int animationCounter = 0;
 
-        //attacking properties
+        //attacking attributes
         bool stunned = false;
         public String currentState = "idle"; // idle, attack1, attack2, jump, etc.
 
+        #region properties
         // ANY VARIABLES THAT DIFFER BY SUBCLASS NEED TO BE MADE AS PROPERTIES SO THEY CAN BE OVERWRITTEN
-        // ANIMATIONS ARE NOW DEPENDENT ON SUBCLASS :)
         private int _health;
         public int Health
         {
@@ -79,6 +79,14 @@ namespace _2dFightTesting
             set { _fallFrames = value; }
         }
 
+        Attack _lightPunch;
+        public Attack LightPunch
+        {
+            get { return _lightPunch; }
+            set { _lightPunch = value; }
+        }
+        #endregion
+
         public Character(float _x, float _y)
         {
             x = _x;
@@ -90,7 +98,7 @@ namespace _2dFightTesting
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
-            // jump is possible
+            // jump if possible
             if (_up && onGround)
             {
                 Jump();
@@ -126,7 +134,7 @@ namespace _2dFightTesting
             onGround = false;
         }
 
-        public void DrawNextFrame(Graphics g, int frameCount)
+        public void DrawFrame(Graphics g, int frameCount)
         {
             // set default movement frames when not attacking
             if (!currentState.StartsWith("attack"))
@@ -149,40 +157,40 @@ namespace _2dFightTesting
             switch (currentState)
             {
                 case "idle":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = IdleFrames[animationCounter]; // default frame
                     break;
                 case "run":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = RunFrames[animationCounter]; // default frame
                     break;
                 case "jump":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = JumpFrames[animationCounter % JumpFrames.Length]; // jump frame
                     break;
                 case "fall":
-                    rect = new Rectangle((int)x - 32, (int)y, 64, 64);
+                    rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = FallFrames[animationCounter % FallFrames.Length]; // fall frame
                     break;
                 case "attack1":
                     if (facingRight)
                     {
-                        rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
+                        rect = new Rectangle((int)x - 48, (int)y - 18, 200, 78);
                     }
                     else
                     {
-                        rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
+                        rect = new Rectangle((int)x - 88, (int)y - 18, 200, 78); // shift to the left
                     }
                     currentImage = Attack1Frames[animationCounter]; // attack frame
                     break;
                 case "attack2":
                     if (facingRight)
                     {
-                        rect = new Rectangle((int)x - 80, (int)y - 18, 200, 78);
+                        rect = new Rectangle((int)x - 48, (int)y - 18, 200, 78);
                     }
                     else
                     {
-                        rect = new Rectangle((int)x - 120, (int)y - 18, 200, 78); // shift to the left
+                        rect = new Rectangle((int)x - 88, (int)y - 18, 200, 78); // shift to the left
                     }
                     currentImage = Attack2Frames[animationCounter]; // attack frame
                     break;
@@ -235,25 +243,15 @@ namespace _2dFightTesting
                         if (animationCounter >= Attack1Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
-                            if (facingRight)
-                                x += 25; // move right after attack
-                            else
-                            {
-                                x -= 25; // move left after attack
-                            }
                             currentState = "idle"; // revert to idle after attack
+
+                            x += (facingRight) ? 25 : -25; // move right or left after attack to match animation
                         }
                         break;
                     case "attack2":
                         if (animationCounter >= Attack2Frames.Length)
                         {
                             animationCounter = 0; // reset to first frame
-                            if (facingRight)
-                                x += 25; // move right after attack
-                            else
-                            {
-                                x -= 25; // move left after attack
-                            }
                             currentState = "idle"; // revert to idle after attack
                         }
                         break;
