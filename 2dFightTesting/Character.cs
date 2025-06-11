@@ -79,11 +79,11 @@ namespace _2dFightTesting
             set { _fallFrames = value; }
         }
 
-        Attack _lightPunch;
-        public Attack LightPunch
+        Attack _light2;
+        public Attack Light2
         {
-            get { return _lightPunch; }
-            set { _lightPunch = value; }
+            get { return _light2; }
+            set { _light2 = value; }
         }
         #endregion
 
@@ -181,7 +181,7 @@ namespace _2dFightTesting
                     {
                         rect = new Rectangle((int)x - 88, (int)y - 18, 200, 78); // shift to the left
                     }
-                    currentImage = Attack1Frames[animationCounter]; // attack frame
+                    currentImage = Light2.Frames[animationCounter]; // attack frame
                     break;
                 case "attack2":
                     if (facingRight)
@@ -240,7 +240,7 @@ namespace _2dFightTesting
                         }
                         break;
                     case "attack1":
-                        if (animationCounter >= Attack1Frames.Length)
+                        if (animationCounter >= Light2.Frames.Count)
                         {
                             animationCounter = 0; // reset to first frame
                             currentState = "idle"; // revert to idle after attack

@@ -32,7 +32,7 @@ namespace _2dFightTesting
             FallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
             // init attacks - testing for now
-            LightPunch = new Attack(4, 2, 0, 0, 0,
+            Light2 = new Attack(4, 2, 0, 0, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack1Frames.ToList() // frames
