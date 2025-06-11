@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using System.Media;
 
 namespace _2dFightTesting
 {
@@ -67,17 +68,11 @@ namespace _2dFightTesting
                 player2.Move(leftPressed, rightPressed, upPressed);
             }
 
+            //Checks for the collision between hit/hurt boxes
+            CheckCollision();
+
             frameCount++;
             Refresh();
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            player1.DrawFrame(g, frameCount);
-            player2.DrawFrame(g, frameCount);
-
-            //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -132,6 +127,8 @@ namespace _2dFightTesting
                     break;
             }
         }
+
+
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -188,6 +185,80 @@ namespace _2dFightTesting
             }
 
             this.Location = originalLocation; // reset position
+        }
+        private void CheckCollision()
+        {
+            //check if the player 1 is attacking
+            if(player1.currentState == "attack1" || player1.currentState == "attack2" && !player1.hitLanded)
+            {
+                //Gets the hit box of where the player is attacking
+                Rectangle hitbox = player1.GetHitBox();
+
+                //Get the area of where player two can be hit
+                Rectangle hurtbox = player2.GetHurtBox();
+
+                //Check if the hitbox overlaps the hurtbox to check for collison
+                if (hitbox.IntersectsWith(hurtbox))
+                {
+                    //Take away health
+                    player2.Health -= 10;
+                    player1.hitLanded = true; //Sets the attack as landed
+                    //Screen shake on collision
+                    //ScreenShake(10, 50);
+                }
+            }
+
+            //check if the player 2 is attacking
+            if(player2.currentState == "attack1" || player2.currentState == "attack2" && !player2.hitLanded)
+            {
+                //Gets the hit box of where the player is attacking
+                Rectangle hitbox = player2.GetHitBox();
+
+                //Get the area of where player one can be hit
+                Rectangle hurtbox = player1.GetHurtBox();
+
+                //Check if the hitbox overlaps the hurtbox to check for collison
+                if (hitbox.IntersectsWith(hurtbox))
+                {
+                    //Take away health
+                    player1.Health -= 10;
+                    player2.hitLanded = true; //Sets the attack as landed
+                    //Screen shake on collision
+                    //ScreenShake(10, 50);
+                }
+            }
+        }
+        
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        { 
+            Graphics g = e.Graphics;
+            player1.DrawFrame(g, frameCount);
+            player2.DrawFrame(g, frameCount);
+
+            //CODE ONLY THERE FOR TESTING PURPOSES
+
+            // Draw the hurtboxes (where the players can be hit) in blue
+            g.DrawRectangle(Pens.Blue, player1.GetHurtBox());
+            g.DrawRectangle(Pens.Blue, player2.GetHurtBox());
+
+            // Draw the hitboxes (active attack zones) in red
+            if (player1.currentState == "attack2" || player1.currentState == "attack1")
+                g.DrawRectangle(Pens.Red, player1.GetHitBox());
+
+            if (player2.currentState == "attack2" || player2.currentState == "attack1")
+                g.DrawRectangle(Pens.Red, player2.GetHitBox());
+
+            // 1. Setup font and brush to draw text
+            Font healthFont = new Font("Arial", 20, FontStyle.Bold); // font for health
+            Brush healthBrush = Brushes.White; // color of health text
+
+            // 2. Draw Player 1 health (top-left)
+            e.Graphics.DrawString("P1 HP: " + player1.Health, healthFont, healthBrush, 10, 10);
+
+            // 3. Draw Player 2 health (top-right)
+            e.Graphics.DrawString("P2 HP: " + player2.Health, healthFont, healthBrush, this.Width - 180, 10);
+
+            //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
         }
     }
 }

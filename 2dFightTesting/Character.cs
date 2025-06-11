@@ -21,11 +21,13 @@ namespace _2dFightTesting
         int floorY = 250;
         bool facingRight = true;
 
+
         //animation attributes
         int animationCounter = 0;
 
         //attacking attributes
         bool stunned = false;
+        public bool hitLanded = false; //to check if the current hit has landed
         public String currentState = "idle"; // idle, attack1, attack2, jump, etc.
 
         #region properties
@@ -84,6 +86,13 @@ namespace _2dFightTesting
         {
             get { return _light2; }
             set { _light2 = value; }
+        }
+        //IDK if you want to call it heavy or something else, but you get the idea
+        Attack _attack2;
+        public Attack Attack2
+        {
+            get { return _attack2; }
+            set { _attack2 = value; }
         }
         #endregion
 
@@ -199,13 +208,13 @@ namespace _2dFightTesting
 
             if (facingRight) // draw normally
             {
-                g.DrawImage(currentImage, rect); 
+                g.DrawImage(currentImage, rect);
             }
             else // draw flipped horizontally
             {
                 Image flippedImage = new Bitmap(currentImage);
                 flippedImage.RotateFlip(RotateFlipType.RotateNoneFlipX);
-                g.DrawImage(flippedImage, rect); 
+                g.DrawImage(flippedImage, rect);
             }
 
 
@@ -244,6 +253,7 @@ namespace _2dFightTesting
                         {
                             animationCounter = 0; // reset to first frame
                             currentState = "idle"; // revert to idle after attack
+                            hitLanded = false;
 
                             x += (facingRight) ? 25 : -25; // move right or left after attack to match animation
                         }
@@ -253,9 +263,44 @@ namespace _2dFightTesting
                         {
                             animationCounter = 0; // reset to first frame
                             currentState = "idle"; // revert to idle after attack
+                            hitLanded = false;
                         }
                         break;
                 }
+            }
+        }
+
+        //Gets the rectangle area that can be hit by an attack
+        public Rectangle GetHurtBox()
+        {
+            return new Rectangle((int)x, (int)y, 64, 64);
+        }
+
+        //Gets the rectangle area where the attack is active during the animations
+        public Rectangle GetHitBox()
+        {
+            //Only return a hitbox when the attack animation is active
+            if(currentState == "attack1" || currentState == "attack2")
+            {
+                //Get the hitbox for the current frame of the animation
+                int frameIndex = Math.Min(animationCounter, Light2.Hitboxes.Count - 1);
+                Rectangle attackBox = Light2.Hitboxes[frameIndex];
+
+                //if the character is facing left, we need to flip the hitbox
+                if (!facingRight)
+                {
+                    return new Rectangle((int)(x - attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
+                }
+                //if the character is facing right, we don't need to flip the hitbox
+                else
+                {
+                    return new Rectangle((int)(x + attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
+                }
+            }
+            //If not attacking, return an empty rectangle so no hitbox is active
+            else
+            {
+                return new Rectangle(0, 0, 0, 0);
             }
         }
 
@@ -268,6 +313,8 @@ namespace _2dFightTesting
                     if (onGround)
                     {
                         currentState = move; // set new move
+                        hitLanded = false; //rest hit landed for next attack
+                       
                     }
                 }
                 else
