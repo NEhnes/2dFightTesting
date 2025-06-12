@@ -304,6 +304,7 @@ namespace _2dFightTesting
                         {
                             animationCounter = 0; // reset to first frame
                             currentState = "idle"; // revert to idle after attack
+                            currentAttack = null;
                             hitLanded = false;
 
                             x += (facingRight) ? 25 : -25; // move right or left after attack to match animation
@@ -314,6 +315,7 @@ namespace _2dFightTesting
                         {
                             animationCounter = 0; // reset to first frame
                             currentState = "idle"; // revert to idle after attack
+                            currentAttack = null;
                             hitLanded = false;
                         }
                         break;
@@ -330,55 +332,59 @@ namespace _2dFightTesting
         //Gets the rectangle area where the attack is active during the animations
         public Rectangle GetHitBox() //uses Attack Data
         {
-            //Only return a hitbox when the attack animation is active
-            if(currentState == "attack1" || currentState == "attack2")
-            {
-                //Get the hitbox for the current frame of the animation
-                int frameIndex = Math.Min(animationCounter, Light2.Hitboxes.Count - 1);
-                Rectangle attackBox = Light2.Hitboxes[frameIndex];
+            // return an empty rectangle if not attacking or if  animation is not in active frames
+            if (animationCounter < currentAttack.StartupFrames) return new Rectangle(0, 0, 0, 0);
+            if (currentAttack == null) return new Rectangle(0, 0, 0, 0);
 
-                //if the character is facing left, we need to flip the hitbox
-                if (!facingRight)
-                {
-                    return new Rectangle((int)(x - attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
-                }
-                //if the character is facing right, we don't need to flip the hitbox
-                else
-                {
-                    return new Rectangle((int)(x + attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
-                }
+            //Get the hitbox for the current frame of the animation
+            int frameIndex = 0; // TEMPORARY FIX BCZ LIST IS ONLY ONE ELEMENT LONG
+            Rectangle attackBox = Light2.Hitboxes[frameIndex];
+
+            //if the character is facing left, we need to flip the hitbox
+            if (!facingRight)
+            {
+                return new Rectangle((int)(x - attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
             }
-            //If not attacking, return an empty rectangle so no hitbox is active
+            //if the character is facing right, we don't need to flip the hitbox
             else
             {
-                return new Rectangle(0, 0, 0, 0);
+                return new Rectangle((int)(x + attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
             }
+
         }
 
-        public void SetMove(string move)
+        public void SetAttack(string attackName)
         {
             //No moves if stunned
-            if(stunTimer > 0)
-            {
-                return;
-            }
+            if(stunTimer > 0) return;
+            
+            if (currentAttack != null) return;
 
             if (!stunned)
             {
-                if (move.StartsWith("attack"))
+                if (onGround)
                 {
-                    if (onGround)
+                    switch (attackName)
                     {
-                        currentState = move; // set new move
-                        hitLanded = false; //rest hit landed for next attack
-                       
+                        case "light2":
+                            currentAttack = Light2;
+                            currentState = "attack1";
+                            Console.WriteLine("Light2 attack initiated");
+                            break;
+                        case "heavy2":
+                            currentAttack = Heavy2;
+                            currentState = "attack2";
+                            Console.WriteLine("Heavy2 attack initiated");
+                            break;
+                        default:
+                            return; // invalid attack
                     }
+                    hitLanded = false; //rest hit landed for next attack
                 }
                 else
                 {
-                    currentState = move; // set new move
+                    // add air attacks here later
                 }
-
 
                 xSpeed = 0; // reset speeds when changing moves
                 ySpeed = 0;
