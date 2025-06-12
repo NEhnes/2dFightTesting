@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace _2dFightTesting
 {
-    public class Samurai : Character
+    public class Samurai : Character 
     {
         // XML READ HITBOXES AND HURTBOXES
         // tons of data which takes up code space
@@ -31,8 +31,14 @@ namespace _2dFightTesting
             JumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
             FallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
 
+            //TESTS    
             // init attacks - testing for now
             Light2 = new Attack(4, 2, 0, 0, 0,
+                new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
+                new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
+                Attack1Frames.ToList() // frames
+            );
+            Attack2 = new Attack(4, 2, 0, 0, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack1Frames.ToList() // frames
