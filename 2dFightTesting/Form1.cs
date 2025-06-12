@@ -16,7 +16,7 @@ namespace _2dFightTesting
 {
     public partial class Form1 : Form
     {
-        Character player1 = new Samurai(100, 100);
+        Samurai player1 = new Samurai(100, 100);
 
         bool aPressed = false;
         bool dPressed = false;
@@ -24,7 +24,7 @@ namespace _2dFightTesting
         Stopwatch wBufferStopwatch = new Stopwatch();
         bool tabPressed = false;
 
-        Character player2 = new Samurai(600, 100);
+        Samurai player2 = new Samurai(600, 100);
         bool leftPressed = false;
         bool rightPressed = false;
         bool upPressed = false;
