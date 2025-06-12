@@ -68,6 +68,8 @@ namespace _2dFightTesting
                 player2.Move(leftPressed, rightPressed, upPressed);
             }
 
+            CheckWallCollisons();
+
             //Checks for the collision between hit/hurt boxes
             CheckCollision();
 
@@ -226,6 +228,35 @@ namespace _2dFightTesting
                     //Screen shake on collision
                     //ScreenShake(10, 50);
                 }
+            }
+        }
+
+        private void CheckWallCollisons()
+        {
+            const int playerWidth = 64;          // Width of player sprite
+
+            //Check player 1 left wall collision
+            if (player1.X <= 0)
+            {
+                player1.X = 0;  // Stop player at left wall
+            }
+
+            // Check player 1 right wall collision  
+            if (player1.X + playerWidth >= this.Width)
+            {
+                player1.X = this.Width - playerWidth;  // Stop player at right wall
+            }
+
+            // Check player 2 left boundary collision
+            if (player2.X <= 0)
+            {
+                player2.X = 0;  // Stop player at left wall
+            }
+
+            // Check player 2 right boundary collision
+            if (player2.X + playerWidth >= this.Width)
+            {
+                player2.X = this.Width - playerWidth;  // Stop player at right wall
             }
         }
         

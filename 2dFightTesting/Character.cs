@@ -41,6 +41,17 @@ namespace _2dFightTesting
             get { return _health; }
             set { _health = value; }
         }
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
         Image[] _idleFrames;
         public Image[] IdleFrames
