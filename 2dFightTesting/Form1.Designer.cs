@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.groundTemp = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -38,14 +38,15 @@
             this.gameTimer.Interval = 40;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick_1);
             // 
-            // groundTemp
+            // label1
             // 
-            this.groundTemp.BackColor = System.Drawing.Color.CadetBlue;
-            this.groundTemp.Location = new System.Drawing.Point(-15, 308);
-            this.groundTemp.Name = "groundTemp";
-            this.groundTemp.Size = new System.Drawing.Size(736, 161);
-            this.groundTemp.TabIndex = 0;
-            this.groundTemp.Text = " ";
+            this.label1.BackColor = System.Drawing.Color.Teal;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.Location = new System.Drawing.Point(-19, 308);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(735, 165);
+            this.label1.TabIndex = 0;
+            this.label1.Text = " ";
             // 
             // Form1
             // 
@@ -53,7 +54,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(684, 411);
-            this.Controls.Add(this.groundTemp);
+            this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
             this.Name = "Form1";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
@@ -65,7 +66,7 @@
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
-        private System.Windows.Forms.Label groundTemp;
+        private System.Windows.Forms.Label label1;
     }
 }
 
