@@ -205,8 +205,20 @@ namespace _2dFightTesting
                     //Take away health
                     player2.Health -= 10;
                     player1.hitLanded = true; //Sets the attack as landed
+
+                    player2.stunTimer = 20;
+
+                    //Add Knockback away from the attacker
+                    if(player1.facingRight == true)
+                    {
+                        player2.knockbackSpeed = 15; //Push the player 2 to the right
+                    }
+                    else
+                    {
+                        player2.knockbackSpeed = -15; //Push the player 2 to the left
+                    }
                     //Screen shake on collision
-                    //ScreenShake(10, 50);
+                    ScreenShake(10, 50);
                 }
             }
 
@@ -225,8 +237,19 @@ namespace _2dFightTesting
                     //Take away health
                     player1.Health -= 10;
                     player2.hitLanded = true; //Sets the attack as landed
+
+                    player1.stunTimer = 20;
+                    //Add Knockback away from the attacker
+                    if (player2.facingRight == true)
+                    {
+                        player1.knockbackSpeed = 15; //Push the player 2 to the right
+                    }
+                    else
+                    {
+                        player1.knockbackSpeed = -15; //Push the player 2 to the left
+                    }
                     //Screen shake on collision
-                    //ScreenShake(10, 50);
+                    ScreenShake(10, 50);
                 }
             }
         }

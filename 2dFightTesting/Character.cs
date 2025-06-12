@@ -20,8 +20,10 @@ namespace _2dFightTesting
         float ySpeed = 0;
         bool onGround = false;
         int floorY = 250;
-        bool facingRight = true;
+        public bool facingRight = true;
 
+        public int stunTimer = 0; //amount of frames the player is stunned for
+        public float knockbackSpeed = 0; //How much the player is pushed back when hit
 
         //animation attributes
         int animationCounter = 0;
@@ -118,6 +120,41 @@ namespace _2dFightTesting
 
         public void Move(bool _left, bool _right, bool _up)
         {
+            //if player is stunned then no controls should work
+            if(stunTimer > 0) 
+            { 
+                stunTimer--; //Reduce timer by 1 each frame
+
+                //Knockback during stun
+                x += knockbackSpeed; //Move the player by the knockback amonut
+
+                //Reduce the knockback amount each frame giving a nice friction effect
+                knockbackSpeed *= 0.85f;
+
+                //Stop knockback when the knockback speed is very small
+                if (Math.Abs(knockbackSpeed) < 0.5f)
+                {
+                    knockbackSpeed = 0; //Stop knockback
+                }
+
+                //Apply gravity fall when stunned
+                if (!onGround)
+                {
+                    if(y <= floorY)
+                    {
+                        ySpeed += (float)(9.8 * 0.4);
+                    }
+                    else if (y > floorY)
+                    {
+                        y = floorY - 1;
+                        ySpeed = 0;
+                        onGround = true;
+                    }
+                }
+                y += ySpeed;
+                return;
+
+            }
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
@@ -320,6 +357,12 @@ namespace _2dFightTesting
 
         public void SetMove(string move)
         {
+            //No moves if stunned
+            if(stunTimer > 0)
+            {
+                return;
+            }
+
             if (!stunned)
             {
                 if (move.StartsWith("attack"))
