@@ -206,14 +206,8 @@ namespace _2dFightTesting
                     player2.stunTimer = 20;
 
                     //Add Knockback away from the attacker
-                    if(player1.facingRight == true)
-                    {
-                        player2.knockbackSpeed = 15; //Push the player 2 to the right
-                    }
-                    else
-                    {
-                        player2.knockbackSpeed = -15; //Push the player 2 to the left
-                    }
+                    player2.knockbackSpeed = (player1.facingRight) ? 15 : -15;
+
                     //Screen shake on collision
                     ScreenShake(10, 50);
                 }
@@ -236,15 +230,10 @@ namespace _2dFightTesting
                     player2.hitLanded = true; //Sets the attack as landed
 
                     player1.stunTimer = 20;
+
                     //Add Knockback away from the attacker
-                    if (player2.facingRight == true)
-                    {
-                        player1.knockbackSpeed = 15; //Push the player 2 to the right
-                    }
-                    else
-                    {
-                        player1.knockbackSpeed = -15; //Push the player 2 to the left
-                    }
+                    player1.knockbackSpeed = (player2.facingRight) ? 15 : -15;
+
                     //Screen shake on collision
                     ScreenShake(10, 50);
                 }
@@ -255,29 +244,11 @@ namespace _2dFightTesting
         {
             const int playerWidth = 64;          // Width of player sprite
 
-            //Check player 1 left wall collision
-            if (player1.X <= 0)
-            {
-                player1.X = 0;  // Stop player at left wall
-            }
+            if (player1.X <= 0)  player1.X = 0;  // Stop player at left wall
+            if (player1.X + playerWidth >= this.Width) player1.X = this.Width - playerWidth;  // Stop player at right wall
 
-            // Check player 1 right wall collision  
-            if (player1.X + playerWidth >= this.Width)
-            {
-                player1.X = this.Width - playerWidth;  // Stop player at right wall
-            }
-
-            // Check player 2 left boundary collision
-            if (player2.X <= 0)
-            {
-                player2.X = 0;  // Stop player at left wall
-            }
-
-            // Check player 2 right boundary collision
-            if (player2.X + playerWidth >= this.Width)
-            {
-                player2.X = this.Width - playerWidth;  // Stop player at right wall
-            }
+            if (player2.X <= 0) player2.X = 0;  // Stop player at left wall
+            if (player2.X + playerWidth >= this.Width) player2.X = this.Width - playerWidth;  // Stop player at right wall
         }
         
         private void Form1_Paint(object sender, PaintEventArgs e)
