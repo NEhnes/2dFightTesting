@@ -30,6 +30,7 @@ namespace _2dFightTesting
                                             Properties.Resources.attack2_4, Properties.Resources.attack2_5, Properties.Resources.attack2_6 };
             JumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };
             FallFrames = new Image[2] { Properties.Resources.fall1, Properties.Resources.fall2 };
+            DamagedFrames = new Image[4] { Properties.Resources.damaged1, Properties.Resources.damaged2, Properties.Resources.damaged3, Properties.Resources.damaged4 };
 
             //TESTS    
             // init attacks - testing for now

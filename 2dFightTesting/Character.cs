@@ -97,6 +97,13 @@ namespace _2dFightTesting
             set { _fallFrames = value; }
         }
 
+        Image[] _damagedFrames;
+        public Image[] DamagedFrames
+        {
+            get { return _damagedFrames; }
+            set { _damagedFrames = value; }
+        }
+
         Attack _light2;
         public Attack Light2
         {
