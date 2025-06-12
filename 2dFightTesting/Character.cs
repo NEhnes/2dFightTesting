@@ -12,6 +12,7 @@ namespace _2dFightTesting
 {
     public class Character
     {
+        #region fields
         //movement attributes
         float x, y;
         int xSpeed = 0;
@@ -29,6 +30,8 @@ namespace _2dFightTesting
         bool stunned = false;
         public bool hitLanded = false; //to check if the current hit has landed
         public String currentState = "idle"; // idle, attack1, attack2, jump, etc.
+        public Attack currentAttack = null;
+        #endregion
 
         #region properties
         // ANY VARIABLES THAT DIFFER BY SUBCLASS NEED TO BE MADE AS PROPERTIES SO THEY CAN BE OVERWRITTEN
@@ -87,12 +90,12 @@ namespace _2dFightTesting
             get { return _light2; }
             set { _light2 = value; }
         }
-        //IDK if you want to call it heavy or something else, but you get the idea
-        Attack _attack2;
-        public Attack Attack2
+
+        Attack _heavy2;
+        public Attack Heavy2
         {
-            get { return _attack2; }
-            set { _attack2 = value; }
+            get { return _heavy2; }
+            set { _heavy2 = value; }
         }
         #endregion
 
@@ -135,16 +138,7 @@ namespace _2dFightTesting
             // update pos
             x += xSpeed;
             y += ySpeed;
-        }
 
-        public void Jump()
-        {
-            ySpeed = -35;
-            onGround = false;
-        }
-
-        public void DrawFrame(Graphics g, int frameCount)
-        {
             // set default movement frames when not attacking
             if (!currentState.StartsWith("attack"))
             {
@@ -157,7 +151,16 @@ namespace _2dFightTesting
                     currentState = (ySpeed <= 0) ? "jump" : "fall";
                 }
             }
+        }
 
+        public void Jump()
+        {
+            ySpeed = -35;
+            onGround = false;
+        }
+
+        public void DrawFrame(Graphics g, int frameCount)  //uses Attack data
+        {
             // initialize rectangle and image for drawing
             Rectangle rect = new Rectangle(0, 0, 1, 1);
             Image currentImage = null;
@@ -201,7 +204,7 @@ namespace _2dFightTesting
                     {
                         rect = new Rectangle((int)x - 88, (int)y - 18, 200, 78); // shift to the left
                     }
-                    currentImage = Attack2Frames[animationCounter]; // attack frame
+                    currentImage = Heavy2.Frames[animationCounter]; // attack frame
                     break;
             }
 
@@ -271,13 +274,13 @@ namespace _2dFightTesting
         }
 
         //Gets the rectangle area that can be hit by an attack
-        public Rectangle GetHurtBox()
+        public Rectangle GetHurtBox() //uses Attack data
         {
             return new Rectangle((int)x, (int)y, 64, 64);
         }
 
         //Gets the rectangle area where the attack is active during the animations
-        public Rectangle GetHitBox()
+        public Rectangle GetHitBox() //uses Attack Data
         {
             //Only return a hitbox when the attack animation is active
             if(currentState == "attack1" || currentState == "attack2")

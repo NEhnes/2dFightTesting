@@ -38,10 +38,10 @@ namespace _2dFightTesting
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack1Frames.ToList() // frames
             );
-            Attack2 = new Attack(4, 2, 0, 0, 0,
+            Heavy2 = new Attack(4, 2, 0, 0, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
-                Attack1Frames.ToList() // frames
+                Attack2Frames.ToList() // frames
             );
         }
     }

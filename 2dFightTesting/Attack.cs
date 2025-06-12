@@ -9,6 +9,7 @@ namespace _2dFightTesting
 {
     public class Attack
     {
+        // need to add x change after attack (ex. attack1 ends to the right)
         public string Name;
         public int StartupFrames;
         public int ActiveFrames;
