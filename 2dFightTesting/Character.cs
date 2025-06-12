@@ -37,11 +37,11 @@ namespace _2dFightTesting
 
         #region properties
         // ANY VARIABLES THAT DIFFER BY SUBCLASS NEED TO BE MADE AS PROPERTIES SO THEY CAN BE OVERWRITTEN
-        private int _health;
-        public int Health
+        private int _damage;
+        public int Damage
         {
-            get { return _health; }
-            set { _health = value; }
+            get { return _damage; }
+            set { _damage = value; }
         }
         public float X
         {

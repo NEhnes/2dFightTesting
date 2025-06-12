@@ -40,7 +40,7 @@
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Teal;
+            this.label1.BackColor = System.Drawing.Color.CadetBlue;
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.label1.Location = new System.Drawing.Point(-19, 308);
             this.label1.Name = "label1";

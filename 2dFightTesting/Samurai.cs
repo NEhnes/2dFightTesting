@@ -17,7 +17,7 @@ namespace _2dFightTesting
         public Samurai(float _x, float _y) : base(_x, _y)
         {
             // subclass specific details below
-            Health = 100;
+            Damage = 0;
             IdleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
                                             Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
                                             Properties.Resources.idle7,  Properties.Resources.idle8 };

@@ -200,7 +200,7 @@ namespace _2dFightTesting
                 if (hitbox.IntersectsWith(hurtbox))
                 {
                     //Take away health
-                    player2.Health -= 10;
+                    player2.Damage += 10;
                     player1.hitLanded = true; //Sets the attack as landed
 
                     player2.stunTimer = 20;
@@ -232,7 +232,7 @@ namespace _2dFightTesting
                 if (hitbox.IntersectsWith(hurtbox))
                 {
                     //Take away health
-                    player1.Health -= 10;
+                    player1.Damage += 10;
                     player2.hitLanded = true; //Sets the attack as landed
 
                     player1.stunTimer = 20;
@@ -304,10 +304,10 @@ namespace _2dFightTesting
             Brush healthBrush = Brushes.White; // color of health text
 
             // 2. Draw Player 1 health (top-left)
-            e.Graphics.DrawString("P1 HP: " + player1.Health, healthFont, healthBrush, 10, 10);
+            e.Graphics.DrawString("P1 DMG: " + player1.Damage, healthFont, healthBrush, 10, 10);
 
             // 3. Draw Player 2 health (top-right)
-            e.Graphics.DrawString("P2 HP: " + player2.Health, healthFont, healthBrush, this.Width - 180, 10);
+            e.Graphics.DrawString("P2 DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
 
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
         }
