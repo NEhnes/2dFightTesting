@@ -56,14 +56,13 @@ namespace _2dFightTesting
             }
 
             //Move player 1 if not attacking
-            if (player1.currentState != "attack1" && player1.currentState != "attack2")
+            if (player1.currentAttack == null)
             {
-
                 player1.Move(aPressed, dPressed, wPressed);
             }
 
             //Move player 2 if not attacking
-            if (player2.currentState != "attack1" && player2.currentState != "attack2")
+            if (player2.currentAttack == null)
             {
                 player2.Move(leftPressed, rightPressed, upPressed);
             }
@@ -94,10 +93,10 @@ namespace _2dFightTesting
                     wBufferStopwatch.Restart();
                     break;
                 case Keys.Q: // attack 1 (p1)
-                    if (player1.currentState != "attack1") player1.SetMove("attack1");
+                    player1.SetAttack("light2");
                     break;
                 case Keys.E: // attack 2 (p2)
-                    if (player1.currentState != "attack2") player1.SetMove("attack2");
+                    player1.SetAttack("heavy2");
                     break;
 
                 //Player 2 keypresses
@@ -113,10 +112,10 @@ namespace _2dFightTesting
 
                 //TODO: Find better keybinds for easier controls maybe something that can be pressed by the pinky finger
                 case Keys.NumPad1: // Player 2 attack 1
-                    if (player2.currentState != "attack1") player2.SetMove("attack1");
+                    player2.SetAttack("light2");
                     break;
                 case Keys.NumPad3: // Player 2 attack 2
-                    if (player2.currentState != "attack2") player2.SetMove("attack2");
+                    player2.SetAttack("heavy2");
                     break;
 
                 //Game Control keypresses
@@ -129,8 +128,6 @@ namespace _2dFightTesting
                     break;
             }
         }
-
-
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -190,8 +187,8 @@ namespace _2dFightTesting
         }
         private void CheckCollision()
         {
-            //check if the player 1 is attacking
-            if(player1.currentState == "attack1" || player1.currentState == "attack2" && !player1.hitLanded)
+            //check if player 1 hit player 2
+            if(player1.currentAttack != null && !player1.hitLanded)
             {
                 //Gets the hit box of where the player is attacking
                 Rectangle hitbox = player1.GetHitBox();
@@ -210,8 +207,8 @@ namespace _2dFightTesting
                 }
             }
 
-            //check if the player 2 is attacking
-            if(player2.currentState == "attack1" || player2.currentState == "attack2" && !player2.hitLanded)
+            //check if the player 2 is attackingd
+            if(player2.currentAttack != null && !player2.hitLanded)
             {
                 //Gets the hit box of where the player is attacking
                 Rectangle hitbox = player2.GetHitBox();
