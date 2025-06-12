@@ -154,6 +154,18 @@
   <data name="attack2_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\attack2_6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="blue_idle1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue_idle1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blue_idle2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue_idle2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blue_idle3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue_idle3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blue_idle4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue_idle4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="damaged1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\damaged1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
