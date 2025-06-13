@@ -224,6 +224,7 @@ namespace _2dFightTesting
             switch (currentState)
             {
                 case "idle":
+                    if (animationCounter >= IdleFrames.Length) animationCounter = 0; // reset to first frame if needed (some attacks have more elements)
                     rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = IdleFrames[animationCounter]; // default frame
                     break;

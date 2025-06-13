@@ -18,8 +18,8 @@ namespace _2dFightTesting
         {
             // subclass specific details below
             Damage = 0;
-            IdleFrames = new Image[4] { Properties.Resources.blue_idle1, Properties.Resources.blue_idle2 , Properties.Resources.blue_idle3 ,
-                                            Properties.Resources.blue_idle4 };
+            IdleFrames = new Image[4] { Properties.Resources.blue_idle1, Properties.Resources.blue_idle1 , Properties.Resources.blue_idle1 ,
+                                            Properties.Resources.blue_idle1 };
             RunFrames = new Image[8] { Properties.Resources.run1, Properties.Resources.run2 , Properties.Resources.run3 ,
                                             Properties.Resources.run4, Properties.Resources.run5, Properties.Resources.run6,
                                             Properties.Resources.run7,  Properties.Resources.run8 };
