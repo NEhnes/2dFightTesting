@@ -21,14 +21,12 @@ namespace _2dFightTesting
         bool aPressed = false;
         bool dPressed = false;
         bool wPressed = false;
-        public static Stopwatch wBufferStopwatch = new Stopwatch();
         bool tabPressed = false;
 
         BlueSamurai player2 = new BlueSamurai(600, 100);
         bool leftPressed = false;
         bool rightPressed = false;
         bool upPressed = false;
-        public static Stopwatch upBufferStopwatch = new Stopwatch();
 
         int frameCount = 0;
 
@@ -41,31 +39,11 @@ namespace _2dFightTesting
 
         private void gameTimer_Tick_1(object sender, EventArgs e)
         {
-            //To handle player 1 w key buffer
-            if (wBufferStopwatch.ElapsedMilliseconds > 100) // remove later after testing
-            {
-                wPressed = false;
-                wBufferStopwatch.Stop();
-            }
+            //Move player 1
+            player1.Move(aPressed, dPressed, wPressed);
 
-            //To handle player 2 up key buffer
-            if (upBufferStopwatch.ElapsedMilliseconds > 100)
-            {
-                upPressed = false;
-                upBufferStopwatch.Stop();
-            }
-
-            //Move player 1 if not attacking
-            if (player1.currentAttack == null)
-            {
-                player1.Move(aPressed, dPressed, wPressed);
-            }
-
-            //Move player 2 if not attacking
-            if (player2.currentAttack == null)
-            {
-                player2.Move(leftPressed, rightPressed, upPressed);
-            }
+            //Move player 2
+            player2.Move(leftPressed, rightPressed, upPressed);
 
             CheckWallCollisons();
 
@@ -89,9 +67,7 @@ namespace _2dFightTesting
                     dPressed = true;
                     break;
                 case Keys.W:
-
                     wPressed = true;
-                    wBufferStopwatch.Restart();
                     break;
                 case Keys.Q: // attack 1 (p1)
                     player1.SetAttack("light2");

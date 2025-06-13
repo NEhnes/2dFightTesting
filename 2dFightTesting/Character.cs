@@ -25,10 +25,13 @@ namespace _2dFightTesting
         public int stunTimer = 0; //amount of frames the player is stunned for
         public float knockbackSpeed = 0; //How much the player is pushed back when hit
 
+        private Stopwatch jumpBufferStopwatch = new Stopwatch(); // jump buffer
+
         //Double Jump attributes    
         public int jumpCounter = 0;
         public int maxJumps = 2;
         public bool isJumping = false;
+
 
         //animation attributes
         int animationCounter = 0;
@@ -171,11 +174,11 @@ namespace _2dFightTesting
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
+            //skip rest if attacking
+            if (currentAttack != null) return;
+
             // jump if possible
-            if (_up && jumpCounter < maxJumps && !Form1.wBufferStopwatch.) /////If error prolly cuz of the jump counter int
-            {
-                Jump();
-            }
+            if (_up && jumpCounter < maxJumps) Jump();
 
             // apply gravity
             if (!onGround)
@@ -217,9 +220,18 @@ namespace _2dFightTesting
 
         public void Jump()
         {
-            ySpeed = -35;
-            onGround = false;
-            jumpCounter++; //Increase jump counter
+            if (!jumpBufferStopwatch.IsRunning)
+            {
+                ySpeed = -35;
+                onGround = false;
+                jumpBufferStopwatch.Restart(); // reset jump buffer timer
+                jumpCounter++; //Increase jump counter
+            }
+            if (jumpBufferStopwatch.ElapsedMilliseconds > 100) // reset jump buffer after 200ms
+            {
+                jumpBufferStopwatch.Stop();
+                jumpBufferStopwatch.Reset();
+            }
         }
 
         public void DrawFrame(Graphics g, int frameCount)  //uses Attack data
