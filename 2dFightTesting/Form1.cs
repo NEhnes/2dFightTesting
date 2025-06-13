@@ -21,14 +21,14 @@ namespace _2dFightTesting
         bool aPressed = false;
         bool dPressed = false;
         bool wPressed = false;
-        Stopwatch wBufferStopwatch = new Stopwatch();
+        public static Stopwatch wBufferStopwatch = new Stopwatch();
         bool tabPressed = false;
 
         BlueSamurai player2 = new BlueSamurai(600, 100);
         bool leftPressed = false;
         bool rightPressed = false;
         bool upPressed = false;
-        Stopwatch upBufferStopwatch = new Stopwatch();
+        public static Stopwatch upBufferStopwatch = new Stopwatch();
 
         int frameCount = 0;
 
@@ -89,6 +89,7 @@ namespace _2dFightTesting
                     dPressed = true;
                     break;
                 case Keys.W:
+
                     wPressed = true;
                     wBufferStopwatch.Restart();
                     break;
