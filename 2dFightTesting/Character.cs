@@ -25,6 +25,11 @@ namespace _2dFightTesting
         public int stunTimer = 0; //amount of frames the player is stunned for
         public float knockbackSpeed = 0; //How much the player is pushed back when hit
 
+        //Double Jump attributes    
+        public int jumpCounter = 0;
+        public int maxJumps = 2;
+        public bool isJumping = false;
+
         //animation attributes
         int animationCounter = 0;
 
@@ -156,6 +161,7 @@ namespace _2dFightTesting
                         y = floorY - 1;
                         ySpeed = 0;
                         onGround = true;
+                        jumpCounter = 0; //reset jumo counter when the player lands
                     }
                 }
                 y += ySpeed;
@@ -166,7 +172,7 @@ namespace _2dFightTesting
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
             // jump if possible
-            if (_up && onGround)
+            if (_up && jumpCounter < maxJumps && !Form1.wBufferStopwatch.) /////If error prolly cuz of the jump counter int
             {
                 Jump();
             }
@@ -184,6 +190,7 @@ namespace _2dFightTesting
                     y = floorY - 1;
                     ySpeed = 0;
                     onGround = true;
+                    jumpCounter = 0;
                 }
             }
 
@@ -212,6 +219,7 @@ namespace _2dFightTesting
         {
             ySpeed = -35;
             onGround = false;
+            jumpCounter++; //Increase jump counter
         }
 
         public void DrawFrame(Graphics g, int frameCount)  //uses Attack data
