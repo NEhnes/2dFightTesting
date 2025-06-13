@@ -30,6 +30,8 @@ namespace _2dFightTesting
 
         int frameCount = 0;
 
+        bool debugMode = true;
+
         public Form1()
         {
             InitializeComponent();
@@ -39,18 +41,17 @@ namespace _2dFightTesting
 
         private void gameTimer_Tick_1(object sender, EventArgs e)
         {
-            //Move player 1
+            //Move players
             player1.Move(aPressed, dPressed, wPressed);
-
-            //Move player 2
             player2.Move(leftPressed, rightPressed, upPressed);
 
             CheckWallCollisons();
 
             //Checks for the collision between hit/hurt boxes
-            CheckCollision();
+            CheckAttackLanded();
 
             frameCount++;
+
             Refresh();
         }
 
@@ -162,7 +163,7 @@ namespace _2dFightTesting
 
             this.Location = originalLocation; // reset position
         }
-        private void CheckCollision()
+        private void CheckAttackLanded()
         {
             //check if player 1 hit player 2
             if(player1.currentAttack != null && !player1.hitLanded)
@@ -234,19 +235,20 @@ namespace _2dFightTesting
             player1.DrawFrame(g, frameCount);
             player2.DrawFrame(g, frameCount);
 
-            //CODE ONLY THERE FOR TESTING PURPOSES
+            if (debugMode)
+            {
+                // Draw the hurtboxes (where the players can be hit) in blue
+                g.DrawRectangle(Pens.Blue, player1.GetHurtBox());
+                g.DrawRectangle(Pens.Blue, player2.GetHurtBox());
 
-            // Draw the hurtboxes (where the players can be hit) in blue
-            g.DrawRectangle(Pens.Blue, player1.GetHurtBox());
-            g.DrawRectangle(Pens.Blue, player2.GetHurtBox());
+                // Draw the hitboxes (active attack zones) in red
+                if (player1.currentAttack != null)
+                    g.DrawRectangle(Pens.Red, player1.GetHitBox());
 
-            // Draw the hitboxes (active attack zones) in red
-            if (player1.currentState == "attack2" || player1.currentState == "attack1")
-                g.DrawRectangle(Pens.Red, player1.GetHitBox());
-
-            if (player2.currentState == "attack2" || player2.currentState == "attack1")
-                g.DrawRectangle(Pens.Red, player2.GetHitBox());
-
+                if (player2.currentAttack != null)
+                    g.DrawRectangle(Pens.Red, player2.GetHitBox());
+            }
+            
             // 1. Setup font and brush to draw text
             Font healthFont = new Font("Arial", 20, FontStyle.Bold); // font for health
             Brush healthBrush = Brushes.White; // color of health text

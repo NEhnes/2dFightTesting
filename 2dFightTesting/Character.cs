@@ -138,7 +138,7 @@ namespace _2dFightTesting
             //if player is stunned then no controls should work
             if(stunTimer > 0) 
             { 
-                stunTimer--; //Reduce timer by 1 each frame
+                stunTimer--;
 
                 //Knockback during stun
                 x += knockbackSpeed; //Move the player by the knockback amonut
@@ -146,27 +146,15 @@ namespace _2dFightTesting
                 //Reduce the knockback amount each frame giving a nice friction effect
                 knockbackSpeed *= 0.85f;
 
-                //Stop knockback when the knockback speed is very small
+                //Stop knockback
                 if (Math.Abs(knockbackSpeed) < 0.5f)
                 {
                     knockbackSpeed = 0; //Stop knockback
+                    stunTimer = 0;
                 }
 
                 //Apply gravity fall when stunned
-                if (!onGround)
-                {
-                    if(y <= floorY)
-                    {
-                        ySpeed += (float)(9.8 * 0.4);
-                    }
-                    else if (y > floorY)
-                    {
-                        y = floorY - 1;
-                        ySpeed = 0;
-                        onGround = true;
-                        jumpCounter = 0; //reset jumo counter when the player lands
-                    }
-                }
+                ApplyGravity();
                 y += ySpeed;
                 return;
 
@@ -174,28 +162,13 @@ namespace _2dFightTesting
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
-            //skip rest if attacking
+            //skip the rest if attacking
             if (currentAttack != null) return;
 
             // jump if possible
             if (_up && jumpCounter < maxJumps) Jump();
 
-            // apply gravity
-            if (!onGround)
-            {
-                if (y <= floorY)
-                {
-                    ySpeed += (float)(9.8 * 0.4);
-                }
-
-                else if (y > floorY)
-                {
-                    y = floorY - 1;
-                    ySpeed = 0;
-                    onGround = true;
-                    jumpCounter = 0;
-                }
-            }
+            ApplyGravity();
 
             // last direction the player moved - condensed with ternary operator
             facingRight = (_left) ? false : (_right) ? true : facingRight;
@@ -231,6 +204,25 @@ namespace _2dFightTesting
             {
                 jumpBufferStopwatch.Stop();
                 jumpBufferStopwatch.Reset();
+            }
+        }
+
+        public void ApplyGravity()
+        {
+            if (!onGround)
+            {
+                if (y <= floorY)
+                {
+                    ySpeed += (float)(9.8 * 0.4);
+                }
+
+                else if (y > floorY)
+                {
+                    y = floorY - 1;
+                    ySpeed = 0;
+                    onGround = true;
+                    jumpCounter = 0;
+                }
             }
         }
 
@@ -360,15 +352,16 @@ namespace _2dFightTesting
         //Gets the rectangle area where the attack is active during the animations
         public Rectangle GetHitBox() //uses Attack Data
         {
-            // return an empty rectangle if not attacking or if  animation is not in active frames
+            // return an empty rectangle if animation is not in active frames
             if (animationCounter < currentAttack.StartupFrames) return new Rectangle(0, 0, 0, 0);
+            // return empty rectangle if not attacking
             if (currentAttack == null) return new Rectangle(0, 0, 0, 0);
 
-            //Get the hitbox for the current frame of the animation
+            // hitbox for the current frame of the animation
             int frameIndex = 0; // TEMPORARY FIX BCZ LIST IS ONLY ONE ELEMENT LONG
             Rectangle attackBox = Light2.Hitboxes[frameIndex];
 
-            //if the character is facing left, we need to flip the hitbox
+            // if the character is facing left, we need to flip the hitbox
             if (!facingRight)
             {
                 return new Rectangle((int)(x - attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
@@ -378,7 +371,6 @@ namespace _2dFightTesting
             {
                 return new Rectangle((int)(x + attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
             }
-
         }
 
         public void SetAttack(string attackName)
