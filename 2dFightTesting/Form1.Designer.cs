@@ -29,8 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            this.roundEndTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -48,11 +50,18 @@
             this.label1.TabIndex = 0;
             this.label1.Text = " ";
             // 
+            // roundEndTimer
+            // 
+            this.roundEndTimer.Interval = 40;
+            this.roundEndTimer.Tick += new System.EventHandler(this.roundEndTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(684, 411);
             this.Controls.Add(this.label1);
             this.DoubleBuffered = true;
@@ -67,6 +76,7 @@
 
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer roundEndTimer;
     }
 }
 
