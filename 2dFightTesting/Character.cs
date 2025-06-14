@@ -150,8 +150,8 @@ namespace _2dFightTesting
         public void Move(bool _left, bool _right, bool _up)
         {
             //if player is stunned then no controls should work
-            if(stunTimer > 0) 
-            { 
+            if (stunTimer > 0)
+            {
                 stunTimer--;
                 if (stunTimer == 0) currentState = "idle"; // reset state to idle after stun ends
                 //Knockback during stun
@@ -176,8 +176,8 @@ namespace _2dFightTesting
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
-            //skip the rest if attacking
-            if (currentAttack != null) return;
+            //skip the rest if attacking on ground
+            if (currentAttack != null && onGround) return;
 
             // jump if possible
             if (_up && jumpCounter < maxJumps) Jump();
@@ -192,7 +192,7 @@ namespace _2dFightTesting
             y += ySpeed;
 
             // set default movement frames when not attacking
-            if (!currentState.StartsWith("attack"))
+            if (currentAttack == null)
             {
                 if (onGround)
                 {
@@ -351,7 +351,7 @@ namespace _2dFightTesting
                     case "stunned":
                         if (animationCounter >= DamagedFrames.Length)
                         {
-                            animationCounter = DamagedFrames.Length -1; // reset to first frame
+                            animationCounter = DamagedFrames.Length - 1; // reset to first frame
                         }
                         break;
                     case "attack1":
@@ -381,6 +381,7 @@ namespace _2dFightTesting
                             currentState = "idle"; // revert to idle after attack
                             currentAttack = null;
                             hitLanded = false;
+                            x += (facingRight) ? 20 : -20; // move right or left after attack to match animation
                         }
                         break;
                 }
@@ -396,6 +397,7 @@ namespace _2dFightTesting
         //Gets the rectangle area where the attack is active during the animations
         public Rectangle GetHitBox() //uses Attack Data
         {
+            Console.WriteLine($"GetHitBox(); called");
             // return an empty rectangle if animation is not in active frames
             if (animationCounter < currentAttack.StartupFrames) return new Rectangle(0, 0, 0, 0);
             if (animationCounter >= currentAttack.StartupFrames + currentAttack.ActiveFrames) return new Rectangle(0, 0, 0, 0);
@@ -421,51 +423,51 @@ namespace _2dFightTesting
         public void SetAttack(string attackName)
         {
             //No moves if stunned
-            if(stunTimer > 0) return;
-            
+            if (stunTimer > 0) return;
+
+            // dont set attack if already attacking
             if (currentAttack != null) return;
 
-            if (!stunned)
+
+            if (onGround) // ground attacks
             {
-                if (onGround)
+                switch (attackName)
                 {
-                    switch (attackName)
-                    {
-                        case "light2":
-                            currentAttack = Light2;
-                            currentState = "attack1";
-                            Console.WriteLine("Light2 attack initiated");
-                            break;
-                        case "heavy2":
-                            currentAttack = Heavy2;
-                            currentState = "attack2";
-                            Console.WriteLine("Heavy2 attack initiated");
-                            break;
-                        default:
-                            return; // invalid attack
-                    }
-                    hitLanded = false; //rest hit landed for next attack
+                    case "light2":
+                        currentAttack = Light2;
+                        currentState = "attack1";
+                        Console.WriteLine("Light2 attack initiated");
+                        break;
+                    case "heavy2":
+                        currentAttack = Heavy2;
+                        currentState = "attack2";
+                        Console.WriteLine("Heavy2 attack initiated");
+                        break;
+                    default:
+                        return; // invalid attack
                 }
-                else // air attacks
-                {
-                    switch (attackName)
-                    {
-                        case "lightAir":
-                            currentAttack = Light2;
-                            currentState = "lightAir";
-                            Console.WriteLine("Light air attack initiated");
-                            break;
-                        default:
-                            return;
-                    }
-                    hitLanded = false; //rest hit landed for next attack
-                }
-
-                xSpeed = 0; // reset speeds when changing moves
-                ySpeed = 0;
-
-                animationCounter = 0; // // reset animation frame counter
+                hitLanded = false; //rest hit landed for next attack
             }
+            else // air attacks
+            {
+                switch (attackName)
+                {
+                    case "lightAir":
+                        currentAttack = Light2;
+                        currentState = "lightAir";
+                        Console.WriteLine("Light air attack initiated");
+                        break;
+                    default:
+                        return;
+                }
+                hitLanded = false; //rest hit landed for next attack
+            }
+
+            xSpeed = 0; // reset speeds when changing moves
+            ySpeed = 0;
+
+            animationCounter = 0; // // reset animation frame counter
+
         }
     }
 }

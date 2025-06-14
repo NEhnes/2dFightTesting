@@ -31,7 +31,7 @@ namespace _2dFightTesting
 
         int frameCount = 0;
 
-        bool debugMode = false;
+        bool debugMode = true;
 
         //Variables for round system
         int player1RoundWins = 0;
