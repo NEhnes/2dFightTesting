@@ -397,7 +397,6 @@ namespace _2dFightTesting
         //Gets the rectangle area where the attack is active during the animations
         public Rectangle GetHitBox() //uses Attack Data
         {
-            Console.WriteLine($"GetHitBox(); called");
             // return an empty rectangle if animation is not in active frames
             if (animationCounter < currentAttack.StartupFrames) return new Rectangle(0, 0, 0, 0);
             if (animationCounter >= currentAttack.StartupFrames + currentAttack.ActiveFrames) return new Rectangle(0, 0, 0, 0);
@@ -406,12 +405,12 @@ namespace _2dFightTesting
 
             // hitbox for the current frame of the animation
             int frameIndex = 0; // TEMPORARY FIX BCZ LIST IS ONLY ONE ELEMENT LONG
-            Rectangle attackBox = Light2.Hitboxes[frameIndex];
+            Rectangle attackBox = currentAttack.Hitboxes[frameIndex];
 
             // if the character is facing left, we need to flip the hitbox
             if (!facingRight)
             {
-                return new Rectangle((int)(x - attackBox.X), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
+                return new Rectangle((int)(x - attackBox.Width), (int)y + attackBox.Y, attackBox.Width, attackBox.Height);
             }
             //if the character is facing right, we don't need to flip the hitbox
             else
@@ -453,7 +452,7 @@ namespace _2dFightTesting
                 switch (attackName)
                 {
                     case "lightAir":
-                        currentAttack = Light2;
+                        currentAttack = LightAir;
                         currentState = "lightAir";
                         Console.WriteLine("Light air attack initiated");
                         break;

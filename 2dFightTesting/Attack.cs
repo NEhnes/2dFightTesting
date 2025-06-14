@@ -23,8 +23,9 @@ namespace _2dFightTesting
         public List<Rectangle> Hurtboxes;
         public List<Image> Frames;
 
-        public Attack(int _startup, int _active, int _recovery, int _hitstun, int _hitstop, List<Rectangle> _hitboxes, List<Rectangle> _hurtboxes, List<Image> _frames)
+        public Attack(String _name, int _startup, int _active, int _recovery, int _hitstun, int _hitstop, List<Rectangle> _hitboxes, List<Rectangle> _hurtboxes, List<Image> _frames)
         {
+            Name = _name;
             StartupFrames = _startup;
             ActiveFrames = _active;
             RecoveryFrames = _recovery;

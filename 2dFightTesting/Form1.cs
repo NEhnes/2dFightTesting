@@ -245,6 +245,11 @@ namespace _2dFightTesting
             {
                 //Gets the hit box of where the player is attacking
                 Rectangle hitbox = player1.GetHitBox();
+                //Console.WriteLine("Player 1 hitbox: " + hitbox.ToString());
+                //Console.WriteLine("Player 1 animation frame " + player1.animationCounter);
+                //Console.WriteLine("Player 1 current attack: " + player1.currentAttack.Name);
+                //Console.WriteLine("Player 1 current active frames: " + player1.currentAttack.StartupFrames + "-" + $"{player1.currentAttack.StartupFrames + player1.currentAttack.ActiveFrames}");
+                //Console.WriteLine("Player 1 current state: " + player1.currentState);
 
                 //Get the area of where player two can be hit
                 Rectangle hurtbox = player2.GetHurtBox();
@@ -262,13 +267,14 @@ namespace _2dFightTesting
 
                     //Add Knockback away from the attacker
                     player2.knockbackSpeed = (player1.facingRight) ? 15 : -15;
+                    player2.facingRight = !player1.facingRight;
 
                     //Screen shake on collision
                     ScreenShake(10, 50);
                 }
             }
 
-            //check if the player 2 is attackingd
+            //check if the player 2 is attacking
             if(player2.currentAttack != null && !player2.hitLanded)
             {
                 //Gets the hit box of where the player is attacking
@@ -290,6 +296,7 @@ namespace _2dFightTesting
 
                     //Add Knockback away from the attacker
                     player1.knockbackSpeed = (player2.facingRight) ? 15 : -15;
+                    player1.facingRight = !player2.facingRight;
 
                     //Screen shake on collision
                     ScreenShake(10, 50);
