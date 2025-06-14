@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 using System.Media;
+using System.Timers;
 
 namespace _2dFightTesting
 {
@@ -32,15 +33,29 @@ namespace _2dFightTesting
 
         bool debugMode = true;
 
+        //Variables for round system
+        int player1RoundWins = 0;
+        int player2RoundWins = 0;
+        int maxDamage = 100;           //Do health not damage if we dont have time
+        int roundsToWin = 2;
+        bool roundOver = false;
+        string roundWinner = "";
+
         public Form1()
         {
             InitializeComponent();
             this.Paint += Form1_Paint;
             gameTimer.Enabled = true;
+            roundEndTimer.Interval = 2000;
         }
 
         private void gameTimer_Tick_1(object sender, EventArgs e)
         {
+            //dont update if the round is over
+            if (roundOver)
+            {
+                return;
+            }
             //Move players
             player1.Move(aPressed, dPressed, wPressed);
             player2.Move(leftPressed, rightPressed, upPressed);
@@ -50,9 +65,86 @@ namespace _2dFightTesting
             //Checks for the collision between hit/hurt boxes
             CheckAttackLanded();
 
+            //Checks if the round is over
+            CheckRoundOver();
+
             frameCount++;
 
             Refresh();
+        }
+
+        private void CheckRoundOver()
+        {
+            if(player1.Damage >= maxDamage)
+            {
+                //Player 2 wins the round
+                player2RoundWins += 1;
+                roundWinner = "Player 2";
+                EndRound();
+            }
+            else if (player2.Damage >= maxDamage)
+            {
+                //Player 1 wins the round
+                player1RoundWins += 1;
+                roundWinner = "Player 1";
+                EndRound();
+            }
+            
+        }
+
+        private void EndRound()
+        {
+            roundOver = true;
+
+            //Check if someone won the round
+            if (player1RoundWins >= roundsToWin)
+            {
+                //ChangeScreen(this, new WinScreen());
+                MessageBox.Show("Player 1 Wins!");//TESTING PURPOSES ONLY
+                return;
+            }
+            else if (player2RoundWins >= roundsToWin)
+            {
+                //Player 2 wins the match
+                //ChangeScreen(this, new WinScreen());
+                MessageBox.Show("Player 2 Wins!");//TESTING PURPOSES ONLY
+                return;
+            }
+            roundEndTimer.Enabled = true;
+        }
+
+        private void roundEndTimer_Tick(object sender, EventArgs e)
+        {
+            roundEndTimer.Stop();
+            StartNextRound();
+        }
+
+        private void StartNextRound()
+        {
+            player1.X = 100;
+            player1.Y = 250;
+            player1.Damage = 0;
+            player1.stunTimer = 0;
+            player1.knockbackSpeed = 0;
+            player1.hitLanded = false;
+            player1.currentState = "idle";
+            player1.currentAttack = null;
+            player1.facingRight = true;
+
+            player2.X = 600;
+            player2.Y = 250;
+            player2.Damage = 0;
+            player2.stunTimer = 0;
+            player2.knockbackSpeed = 0;
+            player2.hitLanded = false;
+            player2.currentState = "idle";
+            player2.currentAttack = null;
+            player2.facingRight = false;
+
+            // Reset round state
+            roundOver = false;
+            roundWinner = "";
+            frameCount = 0;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
