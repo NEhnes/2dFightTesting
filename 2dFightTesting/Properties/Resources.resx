@@ -286,6 +286,18 @@
   <data name="jump2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\jump2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="light_air1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light_air1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_air2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light_air2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_air3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light_air3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="light_air4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\light_air4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="run1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\run1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

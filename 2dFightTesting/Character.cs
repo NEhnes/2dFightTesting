@@ -18,7 +18,7 @@ namespace _2dFightTesting
         int xSpeed = 0;
         const int runningSpeed = 10; // make as property
         float ySpeed = 0;
-        bool onGround = false;
+        public bool onGround = false;
         int floorY = 250;
         public bool facingRight = true;
 
@@ -91,6 +91,13 @@ namespace _2dFightTesting
             set { _attack2Frames = value; }
         }
 
+        Image[] _attack3Frames;
+        public Image[] Attack3Frames
+        {
+            get { return _attack3Frames; }
+            set { _attack3Frames = value; }
+        }
+
         Image[] _jumpFrames;
         public Image[] JumpFrames
         {
@@ -124,6 +131,13 @@ namespace _2dFightTesting
         {
             get { return _heavy2; }
             set { _heavy2 = value; }
+        }
+
+        Attack _lightAir;
+        public Attack LightAir
+        {
+            get { return _lightAir; }
+            set { _lightAir = value; }
         }
         #endregion
 
@@ -278,6 +292,17 @@ namespace _2dFightTesting
                     }
                     currentImage = Heavy2.Frames[animationCounter]; // attack frame
                     break;
+                case "lightAir":
+                    if (facingRight)
+                    {
+                        rect = new Rectangle((int)x - 48, (int)y - 18, 200, 78);
+                    }
+                    else
+                    {
+                        rect = new Rectangle((int)x - 88, (int)y - 18, 200, 78); // shift to the left
+                    }
+                    currentImage = LightAir.Frames[animationCounter]; // attack frame
+                    break;
             }
 
 
@@ -349,6 +374,15 @@ namespace _2dFightTesting
                             hitLanded = false;
                         }
                         break;
+                    case "lightAir":
+                        if (animationCounter >= LightAir.Frames.Count)
+                        {
+                            animationCounter = 0; // reset to first frame
+                            currentState = "idle"; // revert to idle after attack
+                            currentAttack = null;
+                            hitLanded = false;
+                        }
+                        break;
                 }
             }
         }
@@ -412,9 +446,19 @@ namespace _2dFightTesting
                     }
                     hitLanded = false; //rest hit landed for next attack
                 }
-                else
+                else // air attacks
                 {
-                    // add air attacks here later
+                    switch (attackName)
+                    {
+                        case "lightAir":
+                            currentAttack = Light2;
+                            currentState = "lightAir";
+                            Console.WriteLine("Light air attack initiated");
+                            break;
+                        default:
+                            return;
+                    }
+                    hitLanded = false; //rest hit landed for next attack
                 }
 
                 xSpeed = 0; // reset speeds when changing moves

@@ -31,13 +31,13 @@ namespace _2dFightTesting
 
         int frameCount = 0;
 
-        bool debugMode = true;
+        bool debugMode = false;
 
         //Variables for round system
         int player1RoundWins = 0;
         int player2RoundWins = 0;
-        int maxDamage = 100;           //Do health not damage if we dont have time
-        int roundsToWin = 2;
+        const int maxDamage = 100;           //Do health not damage if we dont have time
+        const int roundsToWin = 2;
         bool roundOver = false;
         string roundWinner = "";
 
@@ -52,10 +52,8 @@ namespace _2dFightTesting
         private void gameTimer_Tick_1(object sender, EventArgs e)
         {
             //dont update if the round is over
-            if (roundOver)
-            {
-                return;
-            }
+            if (roundOver) return;
+            
             //Move players
             player1.Move(aPressed, dPressed, wPressed);
             player2.Move(leftPressed, rightPressed, upPressed);
@@ -162,10 +160,11 @@ namespace _2dFightTesting
                 case Keys.W:
                     wPressed = true;
                     break;
-                case Keys.Q: // attack 1 (p1)
-                    player1.SetAttack("light2");
+                case Keys.Q: // light attacks
+                    if (player1.onGround) player1.SetAttack("light2");
+                    else player1.SetAttack("lightAir");
                     break;
-                case Keys.E: // attack 2 (p2)
+                case Keys.E: // heavy
                     player1.SetAttack("heavy2");
                     break;
 
@@ -182,16 +181,18 @@ namespace _2dFightTesting
 
                 //TODO: Find better keybinds for easier controls maybe something that can be pressed by the pinky finger
                 case Keys.P:
-                case Keys.NumPad1: // Player 2 attack 1
-                    player2.SetAttack("light2");
+                case Keys.NumPad1: // light attacks
+                    if (player2.onGround) player2.SetAttack("light2");
+                    else player2.SetAttack("lightAir");
                     break;
                 case Keys.O:
-                case Keys.NumPad3: // Player 2 attack 2
+                case Keys.NumPad3: // heavy
                     player2.SetAttack("heavy2");
                     break;
 
                 //Game Control keypresses
                 case Keys.Escape:
+                    debugMode = !debugMode; // Toggle debug mode
                     break;
                 case Keys.Tab:
                     tabPressed = true;

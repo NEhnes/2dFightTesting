@@ -345,5 +345,17 @@
   <ItemGroup>
     <None Include="Resources\damaged21.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\light_air4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\light_air3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\light_air2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\light_air1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -28,12 +28,12 @@ namespace _2dFightTesting
                                             Properties.Resources.blue_attack1_4 };
             Attack2Frames = new Image[4] { Properties.Resources.blue_attack2_1, Properties.Resources.blue_attack2_2 , Properties.Resources.blue_attack2_3 ,
                                             Properties.Resources.blue_attack2_4 };
+            Attack3Frames = new Image[3] { Properties.Resources.light_air1, Properties.Resources.light_air3, Properties.Resources.light_air4 };
+
             JumpFrames = new Image[2] { Properties.Resources.blue_jump1, Properties.Resources.blue_jump2 };
             FallFrames = new Image[2] { Properties.Resources.blue_fall1, Properties.Resources.blue_fall2 };
             DamagedFrames = new Image[4] { Properties.Resources.blue_damaged1, Properties.Resources.blue_damaged2, Properties.Resources.blue_damaged3, Properties.Resources.blue_damaged4 };
 
-            //TESTS    
-            // init attacks - testing for now
             Light2 = new Attack(2, 1, 0, 0, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
@@ -43,6 +43,11 @@ namespace _2dFightTesting
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack2Frames.ToList() // frames
+            );
+            LightAir = new Attack(1, 2, 0, 0, 0,
+                new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
+                new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
+                Attack3Frames.ToList() // frames
             );
         }
     }
