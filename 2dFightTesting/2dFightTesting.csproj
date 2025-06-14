@@ -247,16 +247,94 @@
     <None Include="Resources\damaged4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\blue_idle2.png" />
+    <None Include="Resources\blue_idle3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\blue_idle3.png" />
+    <None Include="Resources\blue_idle2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blue_idle4.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blue_idle1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_run1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack1_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack1_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack1_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack1_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack2_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack2_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack2_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_attack2_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_fall2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_fall1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_jump2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_jump1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_damaged4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_damaged3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_damaged1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_damaged2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_damaged21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\damaged21.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

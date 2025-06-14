@@ -89,9 +89,11 @@ namespace _2dFightTesting
                     break;
 
                 //TODO: Find better keybinds for easier controls maybe something that can be pressed by the pinky finger
+                case Keys.P:
                 case Keys.NumPad1: // Player 2 attack 1
                     player2.SetAttack("light2");
                     break;
+                case Keys.O:
                 case Keys.NumPad3: // Player 2 attack 2
                     player2.SetAttack("heavy2");
                     break;
@@ -142,27 +144,7 @@ namespace _2dFightTesting
                     break;
             }
         }
-
-        private async void ScreenShake(int intensity = 5, int duration = 100)
-        {
-            var originalLocation = this.Location;
-            Random randgen = new Random();
-
-            int elapsed = 0;
-            int interval = 16; // ~60 FPS
-
-            while (elapsed < duration)
-            {
-                int offsetX = randgen.Next(-intensity, intensity + 1);
-                int offsetY = randgen.Next(-intensity, intensity + 1);
-                this.Location = new Point(originalLocation.X + offsetX, originalLocation.Y + offsetY);
-
-                await Task.Delay(interval);
-                elapsed += interval;
-            }
-
-            this.Location = originalLocation; // reset position
-        }
+ 
         private void CheckAttackLanded()
         {
             //check if player 1 hit player 2
@@ -178,10 +160,12 @@ namespace _2dFightTesting
                 if (hitbox.IntersectsWith(hurtbox))
                 {
                     //Take away health
-                    player2.Damage += 10;
                     player1.hitLanded = true; //Sets the attack as landed
 
+                    player2.Damage += 10;
                     player2.stunTimer = 20;
+                    player2.currentState = "stunned";
+                    player2.animationCounter = 0;
 
                     //Add Knockback away from the attacker
                     player2.knockbackSpeed = (player1.facingRight) ? 15 : -15;
@@ -204,10 +188,12 @@ namespace _2dFightTesting
                 if (hitbox.IntersectsWith(hurtbox))
                 {
                     //Take away health
-                    player1.Damage += 10;
                     player2.hitLanded = true; //Sets the attack as landed
 
+                    player1.Damage += 10;
                     player1.stunTimer = 20;
+                    player1.currentState = "stunned";
+                    player1.animationCounter = 0;
 
                     //Add Knockback away from the attacker
                     player1.knockbackSpeed = (player2.facingRight) ? 15 : -15;
@@ -260,6 +246,27 @@ namespace _2dFightTesting
             e.Graphics.DrawString("P2 DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
 
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
+        }
+
+        private async void ScreenShake(int intensity = 5, int duration = 100)
+        {
+            var originalLocation = this.Location;
+            Random randgen = new Random();
+
+            int elapsed = 0;
+            int interval = 16; // ~60 FPS
+
+            while (elapsed < duration)
+            {
+                int offsetX = randgen.Next(-intensity, intensity + 1);
+                int offsetY = randgen.Next(-intensity, intensity + 1);
+                this.Location = new Point(originalLocation.X + offsetX, originalLocation.Y + offsetY);
+
+                await Task.Delay(interval);
+                elapsed += interval;
+            }
+
+            this.Location = originalLocation; // reset position
         }
     }
 }

@@ -18,6 +18,7 @@ namespace _2dFightTesting
         {
             // subclass specific details below
             Damage = 0;
+
             IdleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
                                             Properties.Resources.idle4, Properties.Resources.idle5, Properties.Resources.idle6,
                                             Properties.Resources.idle7,  Properties.Resources.idle8 };
@@ -25,7 +26,7 @@ namespace _2dFightTesting
                                             Properties.Resources.run4, Properties.Resources.run5, Properties.Resources.run6,
                                             Properties.Resources.run7,  Properties.Resources.run8 };
             Attack1Frames = new Image[6] { Properties.Resources.attack1_1, Properties.Resources.attack1_2 , Properties.Resources.attack1_3 ,
-                                            Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_5 };
+                                            Properties.Resources.attack1_4, Properties.Resources.attack1_5, Properties.Resources.attack1_6 };
             Attack2Frames = new Image[6] { Properties.Resources.attack2_1, Properties.Resources.attack2_2 , Properties.Resources.attack2_3 ,
                                             Properties.Resources.attack2_4, Properties.Resources.attack2_5, Properties.Resources.attack2_6 };
             JumpFrames = new Image[2] { Properties.Resources.jump1, Properties.Resources.jump2 };

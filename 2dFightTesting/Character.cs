@@ -34,7 +34,7 @@ namespace _2dFightTesting
 
 
         //animation attributes
-        int animationCounter = 0;
+        public int animationCounter = 0;
 
         //attacking attributes
         bool stunned = false;
@@ -139,7 +139,7 @@ namespace _2dFightTesting
             if(stunTimer > 0) 
             { 
                 stunTimer--;
-
+                if (stunTimer == 0) currentState = "idle"; // reset state to idle after stun ends
                 //Knockback during stun
                 x += knockbackSpeed; //Move the player by the knockback amonut
 
@@ -252,6 +252,10 @@ namespace _2dFightTesting
                     rect = new Rectangle((int)x, (int)y, 64, 64);
                     currentImage = FallFrames[animationCounter % FallFrames.Length]; // fall frame
                     break;
+                case "stunned":
+                    rect = new Rectangle((int)x, (int)y, 64, 64);
+                    currentImage = DamagedFrames[animationCounter]; // fall frame
+                    break;
                 case "attack1":
                     if (facingRight)
                     {
@@ -319,6 +323,12 @@ namespace _2dFightTesting
                             animationCounter = 0; // reset to first frame
                         }
                         break;
+                    case "stunned":
+                        if (animationCounter >= DamagedFrames.Length)
+                        {
+                            animationCounter = DamagedFrames.Length -1; // reset to first frame
+                        }
+                        break;
                     case "attack1":
                         if (animationCounter >= Light2.Frames.Count)
                         {
@@ -354,6 +364,7 @@ namespace _2dFightTesting
         {
             // return an empty rectangle if animation is not in active frames
             if (animationCounter < currentAttack.StartupFrames) return new Rectangle(0, 0, 0, 0);
+            if (animationCounter >= currentAttack.StartupFrames + currentAttack.ActiveFrames) return new Rectangle(0, 0, 0, 0);
             // return empty rectangle if not attacking
             if (currentAttack == null) return new Rectangle(0, 0, 0, 0);
 
