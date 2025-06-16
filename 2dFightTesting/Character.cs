@@ -165,6 +165,8 @@ namespace _2dFightTesting
                 {
                     knockbackSpeed = 0; //Stop knockback
                     stunTimer = 0;
+                    animationCounter = 0; // reset animation frame counter
+                    currentAttack = null;
                 }
 
                 //Apply gravity fall when stunned

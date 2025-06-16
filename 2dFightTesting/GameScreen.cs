@@ -357,6 +357,13 @@ namespace _2dFightTesting
             e.Graphics.DrawString("P2 DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
 
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
+
+            /* DO NOT DELETE YET */
+            //Console.WriteLine("Player 1 hitbox: " + hitbox.ToString());
+            //Console.WriteLine("Player 1 animation frame " + player1.animationCounter);
+            //Console.WriteLine("Player 1 current attack: " + player1.currentAttack.Name);
+            //Console.WriteLine("Player 1 current active frames: " + player1.currentAttack.StartupFrames + "-" + $"{player1.currentAttack.StartupFrames + player1.currentAttack.ActiveFrames}");
+            //Console.WriteLine("Player 1 current state: " + player1.currentState);
         }
     }
 }
