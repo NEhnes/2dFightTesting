@@ -28,18 +28,51 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.roundEndTimer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // gameTimer
+            // 
+            this.gameTimer.Interval = 40;
+            this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick_1);
+            // 
+            // roundEndTimer
+            // 
+            this.roundEndTimer.Interval = 40;
+            this.roundEndTimer.Tick += new System.EventHandler(this.roundEndTimer_Tick);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.CadetBlue;
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label1.Location = new System.Drawing.Point(-14, 309);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(735, 165);
+            this.label1.TabIndex = 1;
+            this.label1.Text = " ";
             // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(700, 450);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.GameScreen_Paint);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.GameScreen_KeyUp);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.GameScreen_PreviewKeyDown);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Timer roundEndTimer;
+        private System.Windows.Forms.Label label1;
     }
 }

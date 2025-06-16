@@ -44,12 +44,13 @@
             this.howToPlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.howToPlay.Font = new System.Drawing.Font("Palatino Linotype", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.howToPlay.ForeColor = System.Drawing.Color.Transparent;
-            this.howToPlay.Location = new System.Drawing.Point(575, 398);
+            this.howToPlay.Location = new System.Drawing.Point(572, 398);
             this.howToPlay.Name = "howToPlay";
             this.howToPlay.Size = new System.Drawing.Size(125, 49);
             this.howToPlay.TabIndex = 11;
             this.howToPlay.Text = "Demo";
             this.howToPlay.UseVisualStyleBackColor = false;
+            this.howToPlay.Click += new System.EventHandler(this.howToPlay_Click);
             // 
             // exitButton
             // 
@@ -64,7 +65,7 @@
             this.exitButton.ForeColor = System.Drawing.Color.Transparent;
             this.exitButton.Location = new System.Drawing.Point(13, 398);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(108, 49);
+            this.exitButton.Size = new System.Drawing.Size(125, 49);
             this.exitButton.TabIndex = 10;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
@@ -81,17 +82,19 @@
             this.playButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.playButton.Font = new System.Drawing.Font("Palatino Linotype", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playButton.ForeColor = System.Drawing.Color.Transparent;
-            this.playButton.Location = new System.Drawing.Point(270, 398);
+            this.playButton.Location = new System.Drawing.Point(287, 398);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(105, 49);
+            this.playButton.Size = new System.Drawing.Size(125, 49);
             this.playButton.TabIndex = 9;
             this.playButton.Text = "Play";
             this.playButton.UseVisualStyleBackColor = false;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
             // 
             // MenuScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.howToPlay);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.playButton);
