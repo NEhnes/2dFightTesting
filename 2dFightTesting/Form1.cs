@@ -47,6 +47,8 @@ namespace _2dFightTesting
             this.Paint += Form1_Paint;
             gameTimer.Enabled = true;
             roundEndTimer.Interval = 2000;
+
+            ChangeScreen(this, new MenuScreen());
         }
 
         private void gameTimer_Tick_1(object sender, EventArgs e)
@@ -367,6 +369,27 @@ namespace _2dFightTesting
             }
 
             this.Location = originalLocation; // reset position
+        }
+
+        public static void ChangeScreen(object sender, UserControl next)
+        {
+            Form f; // will either be the sender or parent of sender
+
+            if (sender is Form)
+            {
+                f = (Form)sender;                          //f is sender
+            }
+            else
+            {
+                UserControl current = (UserControl)sender;  //create UserControl from sender
+                f = current.FindForm();                     //find Form UserControl is on
+                f.Controls.Remove(current);                 //remove current UserControl
+            }
+
+            // add the new UserControl to the middle of the screen and focus on it
+            next.Location = new Point((f.ClientSize.Width - next.Width) / 2, (f.ClientSize.Height - next.Height) / 2);
+            f.Controls.Add(next);
+            next.Focus();
         }
     }
 }
