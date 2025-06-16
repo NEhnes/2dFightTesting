@@ -238,13 +238,8 @@ namespace _2dFightTesting
             //check if player 1 hit player 2
             if (player1.currentAttack != null && !player1.hitLanded)
             {
-                //Gets the hit box of where the player is attacking
                 Rectangle hitbox = player1.GetHitBox();
-                //Console.WriteLine("Player 1 hitbox: " + hitbox.ToString());
-                //Console.WriteLine("Player 1 animation frame " + player1.animationCounter);
-                //Console.WriteLine("Player 1 current attack: " + player1.currentAttack.Name);
-                //Console.WriteLine("Player 1 current active frames: " + player1.currentAttack.StartupFrames + "-" + $"{player1.currentAttack.StartupFrames + player1.currentAttack.ActiveFrames}");
-                //Console.WriteLine("Player 1 current state: " + player1.currentState);
+                
 
                 //Get the area of where player two can be hit
                 Rectangle hurtbox = player2.GetHurtBox();

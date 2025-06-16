@@ -28,7 +28,7 @@ namespace _2dFightTesting
                                             Properties.Resources.blue_attack1_4 };
             Attack2Frames = new Image[4] { Properties.Resources.blue_attack2_1, Properties.Resources.blue_attack2_2 , Properties.Resources.blue_attack2_3 ,
                                             Properties.Resources.blue_attack2_4 };
-            Attack3Frames = new Image[3] { Properties.Resources.light_air1, Properties.Resources.light_air3, Properties.Resources.light_air4 };
+            Attack3Frames = new Image[3] { Properties.Resources.blue_light_air_1, Properties.Resources.blue_light_air_3, Properties.Resources.blue_light_air_4 };
 
             JumpFrames = new Image[2] { Properties.Resources.blue_jump1, Properties.Resources.blue_jump2 };
             FallFrames = new Image[2] { Properties.Resources.blue_fall1, Properties.Resources.blue_fall2 };
