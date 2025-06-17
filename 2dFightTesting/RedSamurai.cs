@@ -59,10 +59,10 @@ namespace _2dFightTesting
                 switch (currentAttack.Name)
                 {
                     case "Light2":
-                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54);
+                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); 
                         else return new Rectangle((int)X - 8, (int)Y + 10, 30, 54);
                     case "Heavy2":
-                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 54); // GOOD
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 54);
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 54);
                     case "LightAir":
                         break;

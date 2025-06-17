@@ -57,20 +57,22 @@ namespace _2dFightTesting
                 switch (currentAttack.Name)
                 {
                     case "Light2":
-                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54);
+                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); // GOOD
                         else return new Rectangle((int)X - 8, (int)Y + 10, 30, 54);
                     case "Heavy2":
                         if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // GOOD
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
                     case "LightAir":
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // 
+                        else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
                         break;
                 }
                 
             }
 
             // idle/running/jumping/falling hurtbox
-            if (facingRight) return new Rectangle((int)X + 22, (int)Y + 10, 30, 54);
-            else return new Rectangle((int)X + 10, (int)Y + 10, 30, 54);
+            if (facingRight) return new Rectangle((int)X + 27, (int)Y + 10, 20, 54);
+            else return new Rectangle((int)X + 15, (int)Y + 10, 20, 54);
         }
     }
 }
