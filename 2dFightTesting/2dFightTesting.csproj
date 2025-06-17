@@ -67,11 +67,23 @@
     <Compile Include="GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="LeaderBoardScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LeaderBoardScreen.Designer.cs">
+      <DependentUpon>LeaderBoardScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="MenuScreen.Designer.cs">
       <DependentUpon>MenuScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NameInputScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NameInputScreen.Designer.cs">
+      <DependentUpon>NameInputScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,8 +103,14 @@
     <EmbeddedResource Include="GameScreen.resx">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LeaderBoardScreen.resx">
+      <DependentUpon>LeaderBoardScreen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuScreen.resx">
       <DependentUpon>MenuScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NameInputScreen.resx">
+      <DependentUpon>NameInputScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

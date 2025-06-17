@@ -28,11 +28,13 @@ namespace _2dFightTesting
         int frameCount = 0;
 
         bool debugMode = true;
+        public static bool player1wins;
+        public static bool player2wins;
 
         //Variables for round system
         int player1RoundWins = 0;
         int player2RoundWins = 0;
-        const int maxDamage = 100;           //Do health not damage if we dont have time
+        const int maxDamage = 10;           //Do health not damage if we dont have time
         const int roundsToWin = 2;
         bool roundOver = false;
         string roundWinner = "";
@@ -93,15 +95,20 @@ namespace _2dFightTesting
             //Check if someone won the round
             if (player1RoundWins >= roundsToWin)
             {
+                player1wins = true;
                 //ChangeScreen(this, new WinScreen());
                 MessageBox.Show("Player 1 Wins!");//TESTING PURPOSES ONLY
+                Form1.ChangeScreen(this, new WinScreen());
+                
                 return;
             }
             else if (player2RoundWins >= roundsToWin)
             {
+                player2wins = true;
                 //Player 2 wins the match
                 //ChangeScreen(this, new WinScreen());
                 MessageBox.Show("Player 2 Wins!");//TESTING PURPOSES ONLY
+                Form1.ChangeScreen(this, new WinScreen());
                 return;
             }
             roundEndTimer.Enabled = true;
