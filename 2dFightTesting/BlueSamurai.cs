@@ -17,6 +17,8 @@ namespace _2dFightTesting
         public BlueSamurai(float _x, float _y) : base(_x, _y)
         {
             // subclass specific details below
+            Name = "Blue Samurai";
+
             Damage = 0;
 
             IdleFrames = new Image[4] { Properties.Resources.blue_idle1, Properties.Resources.blue_idle2, Properties.Resources.blue_idle3,
@@ -63,9 +65,8 @@ namespace _2dFightTesting
                         if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // GOOD
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
                     case "LightAir":
-                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // 
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // not confirmed
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
-                        break;
                 }
                 
             }

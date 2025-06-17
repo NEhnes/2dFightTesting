@@ -12,7 +12,6 @@ namespace _2dFightTesting
 {
     public partial class GameScreen : UserControl
     {
-
         RedSamurai player1 = new RedSamurai(100, 100);
 
         bool aPressed = false;
@@ -39,11 +38,14 @@ namespace _2dFightTesting
         bool roundOver = false;
         string roundWinner = "";
 
-        public GameScreen()
+        public GameScreen(String _p1Name, String _p2Name)
         {
             InitializeComponent();
             gameTimer.Enabled = true;
             roundEndTimer.Interval = 2000;
+
+            player1.Name = _p1Name;
+            player2.Name = _p2Name;
 
         }
 
@@ -358,10 +360,10 @@ namespace _2dFightTesting
             Brush healthBrush = Brushes.White; // color of health text
 
             // 2. Draw Player 1 health (top-left)
-            e.Graphics.DrawString("P1 DMG: " + player1.Damage, healthFont, healthBrush, 10, 10);
+            e.Graphics.DrawString($"{player1.Name} DMG: " + player1.Damage, healthFont, healthBrush, 10, 10);
 
             // 3. Draw Player 2 health (top-right)
-            e.Graphics.DrawString("P2 DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
+            e.Graphics.DrawString($"{player2.Name} DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
 
             //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
 

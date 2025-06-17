@@ -17,6 +17,8 @@ namespace _2dFightTesting
         public RedSamurai(float _x, float _y) : base(_x, _y)
         {
             // subclass specific details below
+            Name = "Red Samurai";
+
             Damage = 0;
 
             IdleFrames = new Image[8] { Properties.Resources.idle1, Properties.Resources.idle2 , Properties.Resources.idle3 ,
@@ -59,13 +61,14 @@ namespace _2dFightTesting
                 switch (currentAttack.Name)
                 {
                     case "Light2":
-                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); 
+                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); // not confirmed
                         else return new Rectangle((int)X - 8, (int)Y + 10, 30, 54);
                     case "Heavy2":
-                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 54);
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 54); // not confirmed
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 54);
                     case "LightAir":
-                        break;
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 54); // not confirmed
+                        else return new Rectangle((int)X - 15, (int)Y + 15, 35, 54);
                 }
 
             }

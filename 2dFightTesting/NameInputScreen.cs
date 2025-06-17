@@ -19,7 +19,7 @@ namespace _2dFightTesting
 
         private void confirmName_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new GameScreen());
+            Form1.ChangeScreen(this, new GameScreen(player1NameTextBox.Text, player2NameTextBox.Text));
         }
     }
 }
