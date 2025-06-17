@@ -414,5 +414,8 @@
   <ItemGroup>
     <None Include="Resources\blue_light_air_1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="WinRecords.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

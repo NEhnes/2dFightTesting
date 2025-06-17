@@ -12,19 +12,17 @@ namespace _2dFightTesting
 {
     public partial class WinScreen : UserControl
     {
-        public WinScreen()
+        public WinScreen(string _winnerName)
         {
             InitializeComponent();
 
-            if(GameScreen.player1wins == true)
-            {
-                winnerLabel.Text = "Player 1 wins!!!";
-            }
+            winnerLabel.Text = $"{_winnerName} wins!!!";
 
-            if(GameScreen.player2wins == true)
-            {
-                winnerLabel.Text = "Player 2 wins!!!";
-            }
+            // check xml for name
+
+            // if exists, update score
+
+            // if doe snot exist, create new element with name and score
         }
 
         private void leaderboard_Click(object sender, EventArgs e)

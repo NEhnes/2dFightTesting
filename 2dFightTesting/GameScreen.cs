@@ -100,7 +100,7 @@ namespace _2dFightTesting
                 player1wins = true;
                 //ChangeScreen(this, new WinScreen());
                 MessageBox.Show("Player 1 Wins!");//TESTING PURPOSES ONLY
-                Form1.ChangeScreen(this, new WinScreen());
+                Form1.ChangeScreen(this, new WinScreen(player1.Name));
                 
                 return;
             }
@@ -110,7 +110,7 @@ namespace _2dFightTesting
                 //Player 2 wins the match
                 //ChangeScreen(this, new WinScreen());
                 MessageBox.Show("Player 2 Wins!");//TESTING PURPOSES ONLY
-                Form1.ChangeScreen(this, new WinScreen());
+                Form1.ChangeScreen(this, new WinScreen(player1.Name));
                 return;
             }
             roundEndTimer.Enabled = true;
