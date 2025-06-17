@@ -24,7 +24,7 @@ namespace _2dFightTesting
 
         private void playButton_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new GameScreen());
+            Form1.ChangeScreen(this, new NameInputScreen());
         }
 
         private void howToPlay_Click(object sender, EventArgs e)
