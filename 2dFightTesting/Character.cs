@@ -390,13 +390,14 @@ namespace _2dFightTesting
             }
         }
 
-        //Gets the rectangle area that can be hit by an attack
-        public Rectangle GetHurtBox() //uses Attack data
+        // rectangle area that can be hit by an attack
+        public virtual Rectangle GetHurtBox()
         {
+            // default -> gets changed by character via polymorphism
             return new Rectangle((int)x, (int)y, 64, 64);
         }
 
-        //Gets the rectangle area where the attack is active during the animations
+        // region where an attack is active and can damage opponent
         public Rectangle GetHitBox() //uses Attack Data
         {
             // return an empty rectangle if animation is not in active frames

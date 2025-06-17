@@ -50,5 +50,27 @@ namespace _2dFightTesting
                 Attack3Frames.ToList() // frames
             );
         }
+        public override Rectangle GetHurtBox()
+        {
+            if (currentAttack != null)
+            {
+                switch (currentAttack.Name)
+                {
+                    case "Light2":
+                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54);
+                        else return new Rectangle((int)X - 8, (int)Y + 10, 30, 54);
+                    case "Heavy2":
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // GOOD
+                        else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
+                    case "LightAir":
+                        break;
+                }
+                
+            }
+
+            // idle/running/jumping/falling hurtbox
+            if (facingRight) return new Rectangle((int)X + 22, (int)Y + 10, 30, 54);
+            else return new Rectangle((int)X + 10, (int)Y + 10, 30, 54);
+        }
     }
 }
