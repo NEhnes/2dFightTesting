@@ -39,7 +39,7 @@ namespace _2dFightTesting
 
             Player winnerWinner = CheckListForWinner(_winnerName);
 
-            // SortPlayersList();
+            // SortPlayersList(); add in later
 
             AddWinPoint(winnerWinner, _winnerName);
 
@@ -62,11 +62,12 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
-            Console.WriteLine("LoadStats(): --------------");
+            Console.WriteLine("LoadedStats(): --------------");
             foreach (Player p in players)
             {
                 Console.WriteLine("Player: " + p.name + " Wins: " + p.wins);
             }
+            Console.WriteLine("-----------------------------");
             reader.Close();
         }
 
