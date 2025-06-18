@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <players>
-	<player name="p1" wins="5" />
-	<player name="p2" wins="0" />
-	<player name="p3" wins="7" />
-	<player name="p4" wins="9" />
-	<player name="p5" wins="1" />
-	<player name="p6" wins="4" />
+	<player name="P1" wins="5" />
+	<player name="P2" wins="0" />
+	<player name="P3" wins="7" />
+	<player name="P4" wins="9" />
+	<player name="P5" wins="1" />
+	<player name="P6" wins="4" />
 </players>

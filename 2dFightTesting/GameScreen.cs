@@ -33,7 +33,7 @@ namespace _2dFightTesting
         //Variables for round system
         int player1RoundWins = 0;
         int player2RoundWins = 0;
-        const int maxDamage = 100;           
+        const int maxDamage = 10;           //Do health not damage if we dont have time
         const int roundsToWin = 2;
         bool roundOver = false;
         string roundWinner = "";

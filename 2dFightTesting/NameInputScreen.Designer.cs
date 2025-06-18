@@ -41,10 +41,13 @@
             // 
             // player1NameTextBox
             // 
+            this.player1NameTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.player1NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player1NameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.player1NameTextBox.Location = new System.Drawing.Point(61, 314);
+            this.player1NameTextBox.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player1NameTextBox.Location = new System.Drawing.Point(45, 290);
             this.player1NameTextBox.Name = "player1NameTextBox";
-            this.player1NameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.player1NameTextBox.Size = new System.Drawing.Size(140, 29);
             this.player1NameTextBox.TabIndex = 0;
             this.player1NameTextBox.Text = "INPUT NAME";
             this.player1NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -52,10 +55,13 @@
             // 
             // player2NameTextBox
             // 
+            this.player2NameTextBox.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.player2NameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.player2NameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.player2NameTextBox.Location = new System.Drawing.Point(529, 314);
+            this.player2NameTextBox.Font = new System.Drawing.Font("Palatino Linotype", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.player2NameTextBox.Location = new System.Drawing.Point(513, 290);
             this.player2NameTextBox.Name = "player2NameTextBox";
-            this.player2NameTextBox.Size = new System.Drawing.Size(100, 20);
+            this.player2NameTextBox.Size = new System.Drawing.Size(140, 29);
             this.player2NameTextBox.TabIndex = 1;
             this.player2NameTextBox.Text = "INPUT NAME";
             this.player2NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -66,7 +72,7 @@
             this.player2Result.AutoSize = true;
             this.player2Result.Font = new System.Drawing.Font("Palatino Linotype", 24F);
             this.player2Result.ForeColor = System.Drawing.Color.Crimson;
-            this.player2Result.Location = new System.Drawing.Point(505, 25);
+            this.player2Result.Location = new System.Drawing.Point(515, 25);
             this.player2Result.Name = "player2Result";
             this.player2Result.Size = new System.Drawing.Size(138, 44);
             this.player2Result.TabIndex = 24;
@@ -87,7 +93,7 @@
             // 
             this.player2PictureBox.BackgroundImage = global::_2dFightTesting.Properties.Resources.blue_idle1;
             this.player2PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.player2PictureBox.Location = new System.Drawing.Point(491, 72);
+            this.player2PictureBox.Location = new System.Drawing.Point(480, 72);
             this.player2PictureBox.Name = "player2PictureBox";
             this.player2PictureBox.Size = new System.Drawing.Size(163, 167);
             this.player2PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -98,7 +104,7 @@
             // 
             this.player1PictureBox.BackgroundImage = global::_2dFightTesting.Properties.Resources.idle1;
             this.player1PictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.player1PictureBox.Location = new System.Drawing.Point(39, 72);
+            this.player1PictureBox.Location = new System.Drawing.Point(28, 72);
             this.player1PictureBox.Name = "player1PictureBox";
             this.player1PictureBox.Size = new System.Drawing.Size(163, 167);
             this.player1PictureBox.TabIndex = 21;
@@ -115,7 +121,7 @@
             this.confirmName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.confirmName.Font = new System.Drawing.Font("Palatino Linotype", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.confirmName.ForeColor = System.Drawing.Color.Transparent;
-            this.confirmName.Location = new System.Drawing.Point(251, 352);
+            this.confirmName.Location = new System.Drawing.Point(247, 251);
             this.confirmName.Name = "confirmName";
             this.confirmName.Size = new System.Drawing.Size(194, 83);
             this.confirmName.TabIndex = 25;
