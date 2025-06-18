@@ -165,15 +165,6 @@ namespace _2dFightTesting
                 //Reduce the knockback amount each frame giving a nice friction effect
                 knockbackSpeed *= 0.85f;
 
-                //Stop knockback
-                if (Math.Abs(knockbackSpeed) < 0.5f)
-                {
-                    knockbackSpeed = 0; //Stop knockback
-                    stunTimer = 0;
-                    animationCounter = 0; // reset animation frame counter
-                    currentAttack = null;
-                }
-
                 //Apply gravity fall when stunned
                 ApplyGravity();
                 y += ySpeed;
