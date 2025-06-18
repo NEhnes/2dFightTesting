@@ -34,7 +34,7 @@ namespace _2dFightTesting
         //Variables for round system
         int player1RoundWins = 0;
         int player2RoundWins = 0;
-        const int maxDamage = 10;           //Do health not damage if we dont have time
+        const int maxDamage = 100;           //Do health not damage if we dont have time
         const int roundsToWin = 2;
         bool roundOver = false;
         string roundWinner = "";
@@ -260,6 +260,7 @@ namespace _2dFightTesting
                     player2.Damage += 10;
                     player2.stunTimer = 20;
                     player2.currentState = "stunned";
+                    player2.currentAttack = null;
                     player2.animationCounter = 0;
 
                     //Add Knockback away from the attacker
@@ -289,6 +290,7 @@ namespace _2dFightTesting
                     player1.Damage += 10;
                     player1.stunTimer = 20;
                     player1.currentState = "stunned";
+                    player1.currentAttack = null;
                     player1.animationCounter = 0;
 
                     //Add Knockback away from the attacker
