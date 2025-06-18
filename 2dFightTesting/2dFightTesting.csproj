@@ -415,7 +415,9 @@
     <None Include="Resources\blue_light_air_1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WinRecords.xml" />
+    <Content Include="Resources\WinRecords.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

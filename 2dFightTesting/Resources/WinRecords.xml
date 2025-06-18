@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<players>
+	<player name="Nathan" wins="5" />
+	<player name="Ayush" wins="4" />
+	<player name="Gurveer" wins="3" />
+	<player name="" wins="2" />
+	<player name="Player5" wins="1" />
+</players>
