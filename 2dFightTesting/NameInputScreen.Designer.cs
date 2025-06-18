@@ -41,19 +41,25 @@
             // 
             // player1NameTextBox
             // 
+            this.player1NameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.player1NameTextBox.Location = new System.Drawing.Point(61, 314);
             this.player1NameTextBox.Name = "player1NameTextBox";
             this.player1NameTextBox.Size = new System.Drawing.Size(100, 20);
             this.player1NameTextBox.TabIndex = 0;
-            this.player1NameTextBox.Text = "Input Name";
+            this.player1NameTextBox.Text = "INPUT NAME";
+            this.player1NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player1NameTextBox.Enter += new System.EventHandler(this.player1NameTextBox_Enter);
             // 
             // player2NameTextBox
             // 
+            this.player2NameTextBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.player2NameTextBox.Location = new System.Drawing.Point(529, 314);
             this.player2NameTextBox.Name = "player2NameTextBox";
             this.player2NameTextBox.Size = new System.Drawing.Size(100, 20);
             this.player2NameTextBox.TabIndex = 1;
-            this.player2NameTextBox.Text = "Input Name";
+            this.player2NameTextBox.Text = "INPUT NAME";
+            this.player2NameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.player2NameTextBox.Enter += new System.EventHandler(this.player2NameTextBox_Enter);
             // 
             // player2Result
             // 

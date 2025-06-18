@@ -15,6 +15,8 @@ namespace _2dFightTesting
     {
         List<Player> players = new List<Player>();
 
+        String winnerName;
+
         class Player
         {
             public string name;
@@ -24,17 +26,24 @@ namespace _2dFightTesting
         {
             InitializeComponent();
 
-            winnerLabel.Text = $"{_winnerName} wins!!!";
+            winnerName = _winnerName;
 
+            winnerLabel.Text = $"{winnerName} wins!!!";
+
+            IncrementWinner(winnerName);
+        }
+
+        private void IncrementWinner(String _winnerName)
+        {
             LoadStats();
 
-            winnerLabel.Text = players[2].wins;
+            Player winnerWinner = CheckListForWinner(_winnerName);
 
-            CheckListForWinner();
+            // SortPlayersList();
 
-            // if exists, update score
+            AddWinPoint(winnerWinner, _winnerName);
 
-            // if doe snot exist, create new element with name and score
+            OverwriteXml();
         }
 
         private void LoadStats()
@@ -43,7 +52,7 @@ namespace _2dFightTesting
 
             while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element)
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "player")
                 {
                     Player p = new Player();
 
@@ -53,10 +62,71 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
+            Console.WriteLine("LoadStats(): --------------");
+            foreach (Player p in players)
+            {
+                Console.WriteLine("Player: " + p.name + " Wins: " + p.wins);
+            }
+            reader.Close();
         }
 
-        private void CheckListForWinner()
+        private Player CheckListForWinner(String _winnerName)
         {
+            foreach (Player p in players)
+            {
+                if (p.name == _winnerName)
+                {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        private void AddWinPoint(Player winnerWinner, String _winnerName)
+        {
+            if (winnerWinner == null) // doesn't already exist
+            {
+                Player newPlayer = new Player();
+                newPlayer.name = _winnerName;
+                newPlayer.wins = "1";
+                players.Add(newPlayer);
+            }
+            else // already exists
+            {
+                foreach (Player p in players)
+                {
+                    if (p.name == winnerWinner.name)
+                    {
+                        int wins = int.Parse(p.wins);
+                        wins++;
+                        p.wins = wins.ToString();
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void SortPlayersList()
+        {
+            // DO LATER
+        }
+        private void OverwriteXml()
+        {
+            XmlWriter writer = XmlWriter.Create("Resources/WinRecords.xml", null);
+
+            writer.WriteStartDocument();
+            writer.WriteStartElement("Players");
+            foreach (Player p in players)
+            {
+                writer.WriteStartElement("Player");
+                writer.WriteAttributeString("name", p.name);
+                writer.WriteAttributeString("wins", p.wins);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+
+            writer.Close();
         }
 
         private void leaderboard_Click(object sender, EventArgs e)
