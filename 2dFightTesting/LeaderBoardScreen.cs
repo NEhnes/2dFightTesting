@@ -31,6 +31,8 @@ namespace _2dFightTesting
             {
                 outputLabel.Text += $"{p.name} : {p.wins} wins\n";
             }
+
+            OverwriteXml();
         }
         private void LoadStats()
         {
@@ -49,6 +51,25 @@ namespace _2dFightTesting
                 }
             }
             reader.Close();
+        }
+
+        private void OverwriteXml()
+        {
+            XmlWriter writer = XmlWriter.Create("Resources/WinRecords.xml", null);
+
+            writer.WriteStartDocument();
+            writer.WriteStartElement("Players");
+            foreach (Player p in players)
+            {
+                writer.WriteStartElement("Player");
+                writer.WriteAttributeString("name", p.name);
+                writer.WriteAttributeString("wins", p.wins);
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+            writer.WriteEndDocument();
+
+            writer.Close();
         }
     }
 }
