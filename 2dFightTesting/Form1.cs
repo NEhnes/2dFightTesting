@@ -12,15 +12,24 @@ using System.Threading;
 using System.Diagnostics;
 using System.Media;
 using System.Timers;
+using System.IO;
 
 namespace _2dFightTesting
 {
     public partial class Form1 : Form
     {
+        System.Windows.Media.MediaPlayer backMedia = new System.Windows.Media.MediaPlayer();
+
         public Form1()
         {
             InitializeComponent();
             ChangeScreen(this, new MenuScreen());
+
+            backMedia.Open(new Uri(Application.StartupPath + "/Resources/backgroundMusic.mp3"));
+
+            backMedia.MediaEnded += new EventHandler(backMedia_MediaEnded);
+            backMedia.Play();
+
 
         }
 
@@ -43,6 +52,12 @@ namespace _2dFightTesting
             next.Location = new Point((f.ClientSize.Width - next.Width) / 2, (f.ClientSize.Height - next.Height) / 2);
             f.Controls.Add(next);
             next.Focus();
+        }
+
+        private void backMedia_MediaEnded(object sender, EventArgs e)
+        {
+            backMedia.Stop();
+            backMedia.Play();
         }
     }
 }
