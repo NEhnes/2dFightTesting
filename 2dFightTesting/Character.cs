@@ -19,7 +19,7 @@ namespace _2dFightTesting
         const int runningSpeed = 10; // make as property
         float ySpeed = 0;
         public bool onGround = false;
-        int floorY = 250;
+        int floorY = 335;
         public bool facingRight = true;
 
         public int stunTimer = 0; //amount of frames the player is stunned for

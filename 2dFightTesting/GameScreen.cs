@@ -33,7 +33,7 @@ namespace _2dFightTesting
         //Variables for round system
         int player1RoundWins = 0;
         int player2RoundWins = 0;
-        const int maxDamage = 100;           //Do health not damage if we dont have time
+        const int maxDamage = 100;           
         const int roundsToWin = 2;
         bool roundOver = false;
         string roundWinner = "";
@@ -125,7 +125,7 @@ namespace _2dFightTesting
         private void StartNextRound()
         {
             player1.X = 100;
-            player1.Y = 250;
+            player1.Y = 100;
             player1.Damage = 0;
             player1.stunTimer = 0;
             player1.knockbackSpeed = 0;
@@ -357,24 +357,15 @@ namespace _2dFightTesting
                     g.DrawRectangle(Pens.Red, player2.GetHitBox());
             }
 
-            // 1. Setup font and brush to draw text
-            Font healthFont = new Font("Arial", 20, FontStyle.Bold); // font for health
-            Brush healthBrush = Brushes.White; // color of health text
+            //// 1. Setup font and brush to draw text
+            //Font healthFont = new Font("Arial", 20, FontStyle.Bold); // font for health
+            //Brush healthBrush = Brushes.White; // color of health text
 
-            // 2. Draw Player 1 health (top-left)
-            e.Graphics.DrawString($"{player1.Name} DMG: " + player1.Damage, healthFont, healthBrush, 10, 10);
+            //// 2. Draw Player 1 health (top-left)
+            //e.Graphics.DrawString($"{player1.Name} DMG: " + player1.Damage, healthFont, healthBrush, 10, 10);
 
-            // 3. Draw Player 2 health (top-right)
-            e.Graphics.DrawString($"{player2.Name} DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
-
-            //TODO draw player indicators or someway of seperating the player maybe change the player color or a label above them or something
-
-            /* DO NOT DELETE YET */
-            //Console.WriteLine("Player 1 hitbox: " + hitbox.ToString());
-            //Console.WriteLine("Player 1 animation frame " + player1.animationCounter);
-            //Console.WriteLine("Player 1 current attack: " + player1.currentAttack.Name);
-            //Console.WriteLine("Player 1 current active frames: " + player1.currentAttack.StartupFrames + "-" + $"{player1.currentAttack.StartupFrames + player1.currentAttack.ActiveFrames}");
-            //Console.WriteLine("Player 1 current state: " + player1.currentState);
+            //// 3. Draw Player 2 health (top-right)
+            //e.Graphics.DrawString($"{player2.Name} DMG: " + player2.Damage, healthFont, healthBrush, this.Width - 180, 10);
         }
     }
 }

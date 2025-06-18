@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameScreen));
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.roundEndTimer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -44,21 +44,12 @@
             this.roundEndTimer.Interval = 40;
             this.roundEndTimer.Tick += new System.EventHandler(this.roundEndTimer_Tick);
             // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.CadetBlue;
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.label1.Location = new System.Drawing.Point(-14, 309);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(735, 165);
-            this.label1.TabIndex = 1;
-            this.label1.Text = " ";
-            // 
             // GameScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.DoubleBuffered = true;
             this.Name = "GameScreen";
             this.Size = new System.Drawing.Size(700, 450);
@@ -73,6 +64,5 @@
 
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Timer roundEndTimer;
-        private System.Windows.Forms.Label label1;
     }
 }
