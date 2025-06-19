@@ -52,7 +52,7 @@ namespace _2dFightTesting
 
             while (reader.Read())
             {
-                if (reader.NodeType == XmlNodeType.Element && reader.Name == "player")
+                if (reader.NodeType == XmlNodeType.Element && reader.Name == "Player")
                 {
                     Player p = new Player();
 
@@ -62,6 +62,8 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
+
+
             Console.WriteLine("WinScreen_LoadStats(): --------------");
             foreach (Player p in players)
             {
