@@ -32,7 +32,7 @@ namespace _2dFightTesting
                 outputLabel.Text += $"{p.name} : {p.wins} wins\n";
             }
 
-            OverwriteXml();
+            //OverwriteXml();
         }
         private void LoadStats()
         {
