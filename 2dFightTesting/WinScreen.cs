@@ -62,7 +62,7 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
-            Console.WriteLine("LoadedStats(): --------------");
+            Console.WriteLine("WinScreen_LoadStats(): --------------");
             foreach (Player p in players)
             {
                 Console.WriteLine("Player: " + p.name + " Wins: " + p.wins);

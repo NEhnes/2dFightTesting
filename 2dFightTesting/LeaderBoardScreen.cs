@@ -31,8 +31,6 @@ namespace _2dFightTesting
             {
                 outputLabel.Text += $"{p.name} : {p.wins} wins\n";
             }
-
-            //OverwriteXml();
         }
         private void LoadStats()
         {
@@ -50,6 +48,12 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
+            Console.WriteLine("LeadeBoard_LoadStats(): --------------");
+            foreach (Player p in players)
+            {
+                Console.WriteLine("Player: " + p.name + " Wins: " + p.wins);
+            }
+            Console.WriteLine("-----------------------------");
             reader.Close();
         }
 
@@ -70,6 +74,11 @@ namespace _2dFightTesting
             writer.WriteEndDocument();
 
             writer.Close();
+        }
+
+        private void LeaderBoardScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            OverwriteXml();
         }
     }
 }
