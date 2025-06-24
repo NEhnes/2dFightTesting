@@ -171,6 +171,7 @@ namespace _2dFightTesting
                 return;
 
             }
+
             // set lateral movement speed
             xSpeed = (_left) ? -runningSpeed : (_right) ? runningSpeed : 0;
 
