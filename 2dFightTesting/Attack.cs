@@ -13,8 +13,8 @@ namespace _2dFightTesting
         public string Name;
         public int StartupFrames;
         public int ActiveFrames;
-        public int RecoveryFrames;
-        public int TotalFrames => StartupFrames + ActiveFrames + RecoveryFrames;
+        public int Damage;
+        public int TotalFrames => StartupFrames + ActiveFrames;
 
         public int HitstunFrames;
         public int HitstopFrames;
@@ -23,12 +23,12 @@ namespace _2dFightTesting
         public List<Rectangle> Hurtboxes;
         public List<Image> Frames;
 
-        public Attack(String _name, int _startup, int _active, int _recovery, int _hitstun, int _hitstop, List<Rectangle> _hitboxes, List<Rectangle> _hurtboxes, List<Image> _frames)
+        public Attack(String _name, int _startup, int _active, int _damage, int _hitstun, int _hitstop, List<Rectangle> _hitboxes, List<Rectangle> _hurtboxes, List<Image> _frames)
         {
             Name = _name;
             StartupFrames = _startup;
             ActiveFrames = _active;
-            RecoveryFrames = _recovery;
+            Damage = _damage;
             HitstunFrames = _hitstun;
             HitstopFrames = _hitstop;
             Hitboxes = _hitboxes;

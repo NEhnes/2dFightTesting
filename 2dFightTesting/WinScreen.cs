@@ -22,7 +22,7 @@ namespace _2dFightTesting
             public string name;
             public string wins;
         }
-        public WinScreen(string _winnerName)
+        public WinScreen(string _winnerName, string _lastScreen)
         {
             InitializeComponent();
 
@@ -30,18 +30,21 @@ namespace _2dFightTesting
 
             winnerLabel.Text = $"{winnerName} wins!!!";
 
-            IncrementWinner(winnerName);
+            IncrementWinner(winnerName, _lastScreen);
         }
 
-        private void IncrementWinner(String _winnerName)
+        private void IncrementWinner(String _winnerName, String _lastScreen)
         {
             LoadStats();
 
             Player winnerWinner = CheckListForWinner(_winnerName);
 
-            // SortPlayersList(); add in later
+            if (_lastScreen == "gameScreen")
+            {
+                AddWinPoint(winnerWinner, _winnerName);
+            }
 
-            AddWinPoint(winnerWinner, _winnerName);
+            SortPlayersList();
 
             OverwriteXml();
         }
@@ -62,14 +65,6 @@ namespace _2dFightTesting
                     players.Add(p);
                 }
             }
-
-
-            Console.WriteLine("WinScreen_LoadStats(): --------------");
-            foreach (Player p in players)
-            {
-                Console.WriteLine("Player: " + p.name + " Wins: " + p.wins);
-            }
-            Console.WriteLine("-----------------------------");
             reader.Close();
         }
 
@@ -111,8 +106,10 @@ namespace _2dFightTesting
 
         private void SortPlayersList()
         {
-            // DO LATER
+            players = players.OrderByDescending(p => int.Parse(p.wins)).ToList();
         }
+
+
         private void OverwriteXml()
         {
             XmlWriter writer = XmlWriter.Create("Resources/WinRecords.xml", null);
@@ -134,7 +131,7 @@ namespace _2dFightTesting
 
         private void leaderboard_Click(object sender, EventArgs e)
         {
-            Form1.ChangeScreen(this, new LeaderBoardScreen());
+            Form1.ChangeScreen(this, new LeaderBoardScreen(winnerName));
         }
 
         private void button2_Click(object sender, EventArgs e)

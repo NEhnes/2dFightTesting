@@ -19,7 +19,7 @@ namespace _2dFightTesting
             // subclass specific details below
             Name = "Blue Samurai";
 
-            Damage = 0;
+            Health = 100;
 
             IdleFrames = new Image[4] { Properties.Resources.blue_idle1, Properties.Resources.blue_idle2, Properties.Resources.blue_idle3,
                                             Properties.Resources.blue_idle4 };
@@ -36,22 +36,24 @@ namespace _2dFightTesting
             FallFrames = new Image[2] { Properties.Resources.blue_fall1, Properties.Resources.blue_fall2 };
             DamagedFrames = new Image[4] { Properties.Resources.blue_damaged1, Properties.Resources.blue_damaged2, Properties.Resources.blue_damaged3, Properties.Resources.blue_damaged4 };
 
-            Light2 = new Attack("Light2", 2, 1, 0, 0, 0,
+            Light2 = new Attack("Light2", 2, 1, 10, 16, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack1Frames.ToList() // frames
             );
-            Heavy2 = new Attack("Heavy2", 2, 1, 0, 0, 0,
+            Heavy2 = new Attack("Heavy2", 2, 1, 15, 12, 0,
                 new List<Rectangle> { new Rectangle(50, 0, 50, 50) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack2Frames.ToList() // frames
             );
-            LightAir = new Attack("LightAir", 1, 1, 0, 0, 0,
+            LightAir = new Attack("LightAir", 1, 5, 30, 25, 0,
                 new List<Rectangle> { new Rectangle(80, 10, 40, 25) }, // Hitboxes
                 new List<Rectangle> { new Rectangle(0, 0, 100, 100) }, // Hurtboxes
                 Attack3Frames.ToList() // frames
             );
         }
+
+        // GetHurtBox method returns the hurtbox for each frame based on character & current state/attack
         public override Rectangle GetHurtBox()
         {
             if (currentAttack != null)
@@ -59,20 +61,20 @@ namespace _2dFightTesting
                 switch (currentAttack.Name)
                 {
                     case "Light2":
-                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); // GOOD
+                        if (facingRight) return new Rectangle((int)X + 40, (int)Y + 10, 30, 54); // ACCURATE
                         else return new Rectangle((int)X - 8, (int)Y + 10, 30, 54);
                     case "Heavy2":
-                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // GOOD
+                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // ACCURATE
                         else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
                     case "LightAir":
-                        if (facingRight) return new Rectangle((int)X + 45, (int)Y + 15, 35, 49); // not confirmed
-                        else return new Rectangle((int)X - 15, (int)Y + 15, 35, 49);
+                        if (facingRight) return new Rectangle((int)X + 60, (int)Y + 5, 35, 55); // ACCURATE
+                        else return new Rectangle((int)X - 30, (int)Y + 5, 35, 55);
                 }
-                
+
             }
 
             // idle/running/jumping/falling hurtbox
-            if (facingRight) return new Rectangle((int)X + 27, (int)Y + 10, 20, 54);
+            if (facingRight) return new Rectangle((int)X + 27, (int)Y + 10, 20, 54);  // ACCURATE
             else return new Rectangle((int)X + 15, (int)Y + 10, 20, 54);
         }
     }

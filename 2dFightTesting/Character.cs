@@ -22,7 +22,7 @@ namespace _2dFightTesting
         int floorY = 335;
         public bool facingRight = true;
 
-        public int stunTimer = 0; //amount of frames the player is stunned for
+        public int stunTicks = 0; //amount of frames the player is stunned for
         public float knockbackSpeed = 0; //How much the player is pushed back when hit
 
         private Stopwatch jumpBufferStopwatch = new Stopwatch(); // jump buffer
@@ -51,11 +51,11 @@ namespace _2dFightTesting
             get { return _name; }
             set { _name = value; }
         }
-        private int _damage;
-        public int Damage
+        private int _health;
+        public int Health
         {
-            get { return _damage; }
-            set { _damage = value; }
+            get { return _health; }
+            set { _health = value; }
         }
         public float X
         {
@@ -155,10 +155,10 @@ namespace _2dFightTesting
         public void Move(bool _left, bool _right, bool _up)
         {
             //if player is stunned then no controls should work
-            if (stunTimer > 0)
+            if (stunTicks > 0)
             {
-                stunTimer--;
-                if (stunTimer == 0) currentState = "idle"; // reset state to idle after stun ends
+                stunTicks--;
+                if (stunTicks == 0) currentState = "idle"; // reset state to idle after stun ends
                 //Knockback during stun
                 x += knockbackSpeed; //Move the player by the knockback amonut
 
@@ -393,7 +393,7 @@ namespace _2dFightTesting
             return new Rectangle((int)x, (int)y, 64, 64);
         }
 
-        // region where an attack is active and can damage opponent
+        // region where an attack is active and can Health opponent
         public Rectangle GetHitBox() //uses Attack Data
         {
             // return an empty rectangle if animation is not in active frames
@@ -403,8 +403,7 @@ namespace _2dFightTesting
             if (currentAttack == null) return new Rectangle(0, 0, 0, 0);
 
             // hitbox for the current frame of the animation
-            int frameIndex = 0; // TEMPORARY FIX BCZ LIST IS ONLY ONE ELEMENT LONG
-            Rectangle attackBox = currentAttack.Hitboxes[frameIndex];
+            Rectangle attackBox = currentAttack.Hitboxes[0];
 
             // if the character is facing left, we need to flip the hitbox
             if (!facingRight)
@@ -420,8 +419,8 @@ namespace _2dFightTesting
 
         public void SetAttack(string attackName)
         {
-            //No moves if stunned
-            if (stunTimer > 0) return;
+            // no moves if stunned
+            if (stunTicks > 0) return;
 
             // dont set attack if already attacking
             if (currentAttack != null) return;
@@ -434,12 +433,10 @@ namespace _2dFightTesting
                     case "light2":
                         currentAttack = Light2;
                         currentState = "attack1";
-                        Console.WriteLine("Light2 attack initiated");
                         break;
                     case "heavy2":
                         currentAttack = Heavy2;
                         currentState = "attack2";
-                        Console.WriteLine("Heavy2 attack initiated");
                         break;
                     default:
                         return; // invalid attack
@@ -453,7 +450,6 @@ namespace _2dFightTesting
                     case "lightAir":
                         currentAttack = LightAir;
                         currentState = "lightAir";
-                        Console.WriteLine("Light air attack initiated");
                         break;
                     default:
                         return;
@@ -462,10 +458,8 @@ namespace _2dFightTesting
             }
 
             xSpeed = 0; // reset speeds when changing moves
-            ySpeed = 0;
 
             animationCounter = 0; // // reset animation frame counter
-
         }
     }
 }
